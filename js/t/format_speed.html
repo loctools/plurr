@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../plurr.js"></script>
+  </head>
+  <body>
+    <script>
+      var p = new Plurr();
+      var s = 'Do you want to delete {N_PLURAL:this {N} file|these {N} files} permanently?';
+      var params = {'N': 5};
+      var x = 1000000;
+
+      var start = new Date().getTime();
+
+      for (var i = 0; i < x; i++) {
+        var dummy = p.format(s, params);
+      }
+
+      var end = new Date().getTime();
+      var time = end - start;
+      document.write('Execution time (' + x + ' calls): ' + (time / 1000) + ' sec (' + time / x + ' ms per call)');
+    </script>
+  </body>
+</html>

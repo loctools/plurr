@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Plurr Demo</title>
+    <style>
+      body {
+        font-family: Segoe UI, Ubuntu, Lucida Grande, Tahoma, monospace;
+        background: #f4f4f4;
+        color: black;
+        margin: 20px 30px;
+      }
+      textarea, pre, input, select, code {
+        font-family: Consolas, Monaco, Ubuntu monospace, DejaVu Sans Mono, monospace;
+        font-size: 1em;
+        line-height: 1em;
+      }
+      textarea {
+        width: 90%;
+        height: 3em;
+        padding: 4px;
+      }
+      textarea, input {
+        color: blue;
+      }
+      #output {
+        background: #f4f4f4;
+        color: green;
+        border: 1px solid threedshadow;
+      }
+      #error {
+        color: red;
+      }
+      h1 {
+        margin: 0;
+      }
+      h2 {
+        font-size: 1.2em;
+        margin: 1em 0 0.5em;
+      }
+      table {
+        border-collapse: collapse;
+      }
+      td {
+        padding: 0.2em;
+        border: 1px solid threedshadow;
+        min-width: 10em;
+      }
+      .hint {
+        font-size: 80%;
+        color: #666;
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="plural_options.js"></script>
+    <script src="../js/plurr.js"></script>
+    <script>
+      var p = new Plurr();
+      var param_cache = {};
+      param_cache['N'] = 5;
+
+      $(document).ready(function() {
+        var html = '';
+        for (option in plural_options) {
+          var sel = option == 'en' ? ' selected' : ''
+          html += '<option value="' + option + '"' + sel + '>"' + option + '" &mdash; ' + plural_options[option] + '</option>';
+        }
+        $('#locale').html(html);
+
+        change_source();
+
+        $('#auto_plurals').change(change_source);
+        $('#strict').change(change_param);
+        $('#source').change(change_source).keyup(change_source);
+        $('#params input').live('change', change_param).live('keyup', change_param);
+      });
+
+      function cb(name) {
+        var value = param_cache[name] || '';
+        $('#params').append('<tr><td><code>' + name + ':</code></td><td><input param="'+name+'" value="'+value+'" /></td></tr>');
+      }
+
+      function change_source() {
+        return _change(true);
+      }
+
+      function change_param() {
+        return _change(false);
+      }
+
+      function _change(rebuild_params) {
+        var s = $('#source').val().trim();
+        var out, params, options;
+
+        try {
+          $('#params input').each(function(idx, elem) {
+            var name = $(elem).attr('param');
+            var value = $(elem).val().trim();
+            if (value != '') {
+              param_cache[name] = value;
+            }
+          });
+
+          if (rebuild_params) {
+            options = {
+              'locale': $('#locale').val(),
+              'auto_plurals': !!$('#auto_plurals').attr('checked'),
+              'strict': !!$('#strict').attr('checked'),
+              'callback': cb,
+            };
+            $('#params').text('');
+            p.format(s, {}, options);
+          }
+
+          params = {};
+          $('#params input').each(function(idx, elem) {
+            var name = $(elem).attr('param');
+            var value = $(elem).val().trim();
+            if (value != '') {
+              params[name] = value;
+            }
+          });
+
+          options = {
+            'locale': $('#locale').val(),
+            'auto_plurals': !!$('#auto_plurals').attr('checked'),
+            'strict': !!$('#strict').attr('checked'),
+          };
+          out = p.format(s, params, options);
+
+        } catch (e) {
+          $('#error').text('Exception:' + e);
+          $('#output').text('');
+          return true;
+        }
+        $('#error').text('');
+        $('#output').text(out);
+        return true;
+      }
+
+    </script>
+  </head>
+  <body>
+    <h1>Plurr Demo</h1>
+
+    <p>Plurr is a universal format specification designed to be easy to support for developers and understandale for translators
+yet robust to support different language requirements.</p>
+
+
+    <h2>1. Define Plurr options:</h2>
+    <p>
+      <table>
+      <tr><td><label for="locale"><code>locale:</code></label></td><td><select name="locale" id="locale"></select><br /><span class="hint">(Target locale based on which the plurals are calculated)</span></td></tr>
+      <tr><td><label for="auto_plurals"><code>auto_plurals:</code></label></td><td><input type="checkbox" name="auto_plurals" id="auto_plurals" checked="checked" /> <span class="hint">(Generate X_PLURAL based on the value of X)</span></td></tr>
+      <tr><td><label for="strict"><code>strict:</code></label></td><td><input type="checkbox" name="strict" id="strict" checked="checked" /> <span class="hint">(Throw exceptions when parameters are not provided)</span></td></tr>
+      </table>
+    </p>
+    <h2>2. Play around with the format string:</h2>
+    <textarea id="source">Do you want to delete {N_PLURAL:this {N} file|these {N} files} permanently?</textarea>
+    <h2>3. Try specifying different input parameters:</h2>
+    <table id="params"></table>
+    <h2>4. See the live output as you type:</h2>
+    <pre id="error"></pre>
+    <textarea id="output" readonly="readonly"></textarea>
+  </body>
+</html>

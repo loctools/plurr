@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../plurr.js"></script>
+  </head>
+  <body>
+    <script>
+      function t (n, p, s, params, options, message, exception) {
+        var result;
+        try {
+          result = p.format(s, params, options);
+        } catch (e) {
+          document.write(n, ': ', (e == exception ? 'pass' : 'fail: ['+e+'] vs ['+exception+']'), '<br/>');
+          return;
+        }
+        if (exception != undefined) {
+          document.write(n, ': ', 'fail: should produce exception ['+exception+']', '<br/>');
+        } else {
+          document.write(n, ': ', (result === message ? 'pass' : 'fail: ['+result+'] vs ['+message+']'), '<br/>');
+        }
+      }
+
+      var p = new Plurr();
+      var s;
+
+      t('e.1', p, '', undefined, undefined, '', "'params' is not a hash");
+      t('e.2', p, 'err {', {}, undefined, '', "Unmatched { found");
+      t('e.3', p, 'err }', {}, undefined, '', "Unmatched } found");
+      t('e.4', p, '{foo}', {}, undefined, '', "'foo' not defined");
+      t('e.5', p, '{N_PLURAL}', {'N': 'NaN'}, undefined, '', "Value of 'N' is not a number");
+
+      s = 'Do you want to delete {N_PLURAL:this {N} file|these {N} files} permanently?';
+
+      t('1.1', p, s, {'N': 1}, undefined, 'Do you want to delete this 1 file permanently?');
+      t('1.2', p, s, {'N': 5}, undefined, 'Do you want to delete these 5 files permanently?');
+
+      s = 'Do you want to drink {CHOICE:coffee|tea|juice}?';
+
+      t('2.1', p, s, {'CHOICE': 0}, undefined, 'Do you want to drink coffee?');
+      t('2.2', p, s, {'CHOICE': 1}, undefined, 'Do you want to drink tea?');
+      t('2.3', p, s, {'CHOICE': 2}, undefined, 'Do you want to drink juice?');
+
+    </script>
+  </body>
+</html>
