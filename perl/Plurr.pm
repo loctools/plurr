@@ -1,3 +1,5 @@
+# Copyright (Ñ) 2012 Igor Afanasyev, https://github.com/iafan/Plurr
+
 package Plurr;
 
 my $VERSION = '1.0';

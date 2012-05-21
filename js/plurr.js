@@ -1,3 +1,5 @@
+// Copyright (Ñ) 2012 Igor Afanasyev, https://github.com/iafan/Plurr
+
 function Plurr(options) {
   //
   // Initialize object
