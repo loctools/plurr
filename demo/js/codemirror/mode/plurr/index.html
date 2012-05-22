@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <title>CodeMirror: Plurr mode</title>
+    <link rel="stylesheet" href="../../lib/codemirror.css">
+    <script src="../../lib/codemirror.js"></script>
+    <script src="plurr.js"></script>
+    <link rel="stylesheet" href="plurr.css">
+    <style>.CodeMirror {border: 1px solid #ddd;}</style>
+    <link rel="stylesheet" href="../../doc/docs.css">
+  </head>
+  <body>
+    <h1>CodeMirror: Plurr mode</h1>
+    <form><textarea id="code" name="code">
+1) Bars ("|") and colons (":") are not highlighted in regular text.
+
+2) Simple placeholders: {FOO} and {BAR}.
+
+3) Placeholders with options:
+
+   Do you want to delete {N_PLURAL:this {N} file|these {N} files} permanently?
+
+or:
+
+   {X_PLURAL:{X} file|{X} files} found in {Y_PLURAL:{Y} folder|{Y} folders}.
+   Do you want to {COMMAND:copy|move|delete} {X_PLURAL:it|them}?
+
+4) Bars before colons are treated as a part of a key. Nested placeholders are supported:
+
+   {FOO|BAR} and {BAR{BAZ:ETC|PWD}}
+
+5) If an unmatched closing curly brace found, the rest of the text is marked as erroneous:
+
+   {FOO}} &lt;== Oops.
+
+</textarea></form>
+    <script>
+      var editor = CodeMirror.fromTextArea(document.getElementById("code"), {});
+    </script>
+
+    <p><a href="https://github.com/iafan/Plurr">Plurr</a> is a cross-platform format specification + libraries for handling plurals/genders/conditionals.</p>
+
+    <p><strong>MIME types defined:</strong> <code>text/x-plurr</code>.</p>
+
+  </body>
+</html>

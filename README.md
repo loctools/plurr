@@ -11,11 +11,17 @@ translator-friendly, like Java's MessageFormat/ChoiceFormat.
 developers and understandale for translators yet robust to support different
 language requirements.
 
+[Try live demo &rarr;](http://a-i-studio.com/plurr-demo/)
+===============
+
 Currently Plurr is implemented in:
 
-  * JavaScript
+  * JavaScript (including )
   * Perl
   * PHP
+
+Also there's a Plurr [syntax highlighter](https://github.com/iafan/Plurr/tree/master/demo/js/codemirror/mode/plurr) avilable for [CodeMirror](http://codemirror.net/),
+which is also a part of the live demo.
 
 Feel free to contribute to this project and provide implementations for your
 favorite languages.
