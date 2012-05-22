@@ -148,7 +148,7 @@ Inside a string, there can be multiple placeholders of any kind.
 #### Example:
 
     {X_PLURAL:{X} file|{X} files} found in {Y_PLURAL:{Y} folder|{Y} folders}.
-    Do you want to {COMMAND:copy|move|delete} {X:it|them}?
+    Do you want to {COMMAND:copy|move|delete} {X:them|it|them}?
 
 Here, in addition to handling plurals, we use a value of `COMMAND` placeholder
 to display different verbs.
