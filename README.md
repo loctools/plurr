@@ -16,7 +16,7 @@ language requirements.
 
 Currently Plurr is implemented in:
 
-  * JavaScript (including )
+  * JavaScript
   * Perl
   * PHP
 
