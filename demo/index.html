@@ -4,202 +4,23 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <title>Plurr Demo</title>
 
+    <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="js/plural_options.js"></script>
-    <script src="../js/plurr.js"></script>
 
+    <!-- CodeMirror editor -->
     <link rel="stylesheet" href="js/codemirror/lib/codemirror.css">
     <script src="js/codemirror/lib/codemirror.js"></script>
     <script src="js/codemirror/mode/plurr/plurr.js"></script>
     <link rel="stylesheet" href="js/codemirror/mode/plurr/plurr.css">
 
-    <style>
-      body {
-        font-family: Segoe UI, Ubuntu, Lucida Grande, Tahoma, monospace;
-        background: #f4f4f4;
-        color: black;
-        margin: 20px 30px;
-      }
+    <!-- Plurr -->
+    <script src="../js/plurr.js"></script>
 
-      textarea, pre, input, select, code {
-        font-family: Consolas, Monaco, Ubuntu monospace, DejaVu Sans Mono, monospace;
-        font-size: 1em;
-        line-height: 1em;
-      }
+    <!-- Demo -->
+    <link rel="stylesheet" href="css/demo.css">
+    <script src="js/plural_options.js"></script>
+    <script src="js/demo.js"></script>
 
-      textarea {
-        width: 90%;
-        height: 3em;
-        padding: 4px;
-      }
-
-      .CodeMirror {
-        font-family: Consolas, Monaco, Ubuntu monospace, DejaVu Sans Mono, monospace;
-        font-size: 1em;
-        line-height: 1em;
-
-        width: 90%;
-        padding: 4px;
-
-        background: #fff;
-        border: 1px solid threedshadow;
-      }
-
-      .CodeMirror,
-      .CodeMirror-scroll {
-        height: 3em;
-      }
-
-      #params code,
-      #params input {
-        color: green;
-      }
-
-      #output {
-        background: #f4f4f4;
-        color: blue;
-        border: 1px solid threedshadow;
-      }
-
-      #error {
-        color: red;
-      }
-
-      h1 {
-        margin: 0;
-      }
-
-      h2 {
-        font-size: 1.2em;
-        margin: 1em 0 0.5em;
-      }
-
-      table {
-        border-collapse: collapse;
-      }
-
-      td {
-        padding: 0.2em;
-        border: 1px solid threedshadow;
-        min-width: 10em;
-      }
-
-      .hint {
-        font-size: 80%;
-        color: #666;
-      }
-    </style>
-
-    <script>
-      var editor;
-      var timer;
-      var prev_params_keys;
-      var params_keys;
-      var params_html;
-
-      var p = new Plurr();
-      var param_cache = {};
-      param_cache['N'] = 5;
-
-      $(document).ready(function() {
-        editor = CodeMirror.fromTextArea(document.getElementById("source"), {onChange: change_source});
-
-        var html = '';
-        for (option in plural_options) {
-          var sel = option == 'en' ? ' selected' : ''
-          html += '<option value="' + option + '"' + sel + '>"' + option + '" &mdash; ' + plural_options[option] + '</option>';
-        }
-        $('#locale').html(html);
-
-        change_source();
-
-        $('#auto_plurals').change(change_source);
-        $('#strict').change(change_param);
-        //$('#source').bind('change keyup', change_source); // not used as it is replaced with the CodeMirror
-        $('#params input').on('change keyup cut paste', change_param);
-      });
-
-      function cb(name) {
-        var value = param_cache[name] || '';
-        params_keys += "\t" + name;
-        params_html += '<tr><td><code>' + name + ':</code></td><td><input id="param_'+name+'" param="'+name+'" value="'+value+'" /></td></tr>';
-        return value;
-      }
-
-      function change_source() {
-        return _change(true);
-      }
-
-      function change_param() {
-        return _change(false);
-      }
-
-      function _change(rebuild_params) {
-        //var s = $('#source').val().trim(); // not used as it is replaced with the CodeMirror
-        var s = editor.getValue().trim();
-        var out, params, options;
-
-        try {
-          $('#params input').each(function(idx, elem) {
-            var name = $(elem).attr('param');
-            var value = $(elem).val().trim();
-            if (value != '') {
-              param_cache[name] = value;
-            } else {
-              delete param_cache[name];
-            }
-          });
-
-          if (rebuild_params) {
-            options = {
-              'locale': $('#locale').val(),
-              'auto_plurals': !!$('#auto_plurals').attr('checked'),
-              'strict': true,
-              'callback': cb,
-            };
-            params_keys = '';
-            params_html = '';
-            p.format(s, {}, options);
-            if (prev_params_keys != params_keys) {
-              $('#params').html(params_html);
-              prev_params_keys = params_keys;
-            }
-          }
-
-          params = {};
-          $('#params input').each(function(idx, elem) {
-            var name = $(elem).attr('param');
-            var value = $(elem).val().trim();
-            if (value != '') {
-              params[name] = value;
-            }
-          });
-
-          options = {
-            'locale': $('#locale').val(),
-            'auto_plurals': !!$('#auto_plurals').attr('checked'),
-            'strict': !!$('#strict').attr('checked'),
-          };
-          out = p.format(s, params, options);
-
-          $('#error').text('');
-          $('#output').text(out);
-
-        } catch (e) {
-
-          $('#error').text('Exception:' + e);
-          $('#output').text('');
-        }
-
-        if (!rebuild_params) {
-          clearTimeout(timer);
-          timer = setTimeout(change_source, 0); // do a full rebuild on next step, after DOM is created
-        }
-
-        return true;
-      }
-
-    </script>
   </head>
   <body>
     <h1>Plurr Demo</h1>

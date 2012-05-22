@@ -1,0 +1,74 @@
+body {
+  font-family: Segoe UI, Ubuntu, Lucida Grande, Tahoma, monospace;
+  background: #f4f4f4;
+  color: black;
+  margin: 20px 30px;
+}
+
+textarea, pre, input, select, code {
+  font-family: Consolas, Monaco, Ubuntu monospace, DejaVu Sans Mono, monospace;
+  font-size: 1em;
+  line-height: 1em;
+}
+
+textarea {
+  width: 90%;
+  height: 3em;
+  padding: 4px;
+}
+
+.CodeMirror {
+  font-family: Consolas, Monaco, Ubuntu monospace, DejaVu Sans Mono, monospace;
+  font-size: 1em;
+  line-height: 1em;
+
+  width: 90%;
+  padding: 4px;
+
+  background: #fff;
+  border: 1px solid threedshadow;
+}
+
+.CodeMirror,
+.CodeMirror-scroll {
+  height: 3em;
+}
+
+#params code,
+#params input {
+  color: green;
+}
+
+#output {
+  background: #f4f4f4;
+  color: blue;
+  border: 1px solid threedshadow;
+}
+
+#error {
+  color: red;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.2em;
+  margin: 1em 0 0.5em;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  padding: 0.2em;
+  border: 1px solid threedshadow;
+  min-width: 10em;
+}
+
+.hint {
+  font-size: 80%;
+  color: #666;
+}
