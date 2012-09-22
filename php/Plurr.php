@@ -1,6 +1,6 @@
 <?php
 
-// Copyright (Ñ) 2012 Igor Afanasyev, https://github.com/iafan/Plurr
+// Copyright (C) 2012 Igor Afanasyev, https://github.com/iafan/Plurr
 
 class Plurr {
   private $plural;
