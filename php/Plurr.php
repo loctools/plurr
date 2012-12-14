@@ -4,14 +4,17 @@
 
 class Plurr {
   private $plural;
-  private $options;
+  private $default_options;
   private $locale_sub;
 
   //
   // Initialize object
   //
   function __construct($options = null) {
-    $this->options = isset($options) ? $options : array(
+
+    $options = isset($options) ? $options : array();
+
+    $this->default_options = $options + array(
       'locale' => 'en',
       'auto_plurals' => true,
       'strict' => true,
@@ -27,24 +30,24 @@ class Plurr {
       'ak' => function ($n) { return ($n>1) ? 1 : 0; }, // Akan
       'am' => function ($n) { return ($n>1) ? 1 : 0; }, // Amharic
       'an' => function ($n) { return ($n!=1) ? 1 : 0; }, // Aragonese
-      'ar' => function ($n) { return $n==0 ? 0 : $n==1 ? 1 : $n==2 ? 2 : $n%100>=3 && $n%100<=10 ? 3 : $n%100>=11 ? 4 : 5; }, // Arabic notes
+      'ar' => function ($n) { return $n==0 ? 0 : ($n==1 ? 1 : ($n==2 ? 2 : ($n%100>=3 && $n%100<=10 ? 3 : ($n%100>=11 ? 4 : 5)))); }, // Arabic
       'arn' => function ($n) { return ($n>1) ? 1 : 0; }, // Mapudungun
       'ast' => function ($n) { return ($n!=1) ? 1 : 0; }, // Asturian
       'ay' => function ($n) { return 0; }, // Aymara
       'az' => function ($n) { return ($n!=1) ? 1 : 0; }, // Azerbaijani
 
-      'be' => function ($n) { return ($n%10==1 && $n%100!=11 ? 0 : $n%10>=2 && $n%10<=4 && ($n%100<10 || $n%100>=20) ? 1 : 2); }, // Belarusian
+      'be' => function ($n) { return ($n%10==1 && $n%100!=11 ? 0 : ($n%10>=2 && $n%10<=4 && ($n%100<10 || $n%100>=20) ? 1 : 2)); }, // Belarusian
       'bg' => function ($n) { return ($n!=1) ? 1 : 0; }, // Bulgarian
       'bn' => function ($n) { return ($n!=1) ? 1 : 0; }, // Bengali
       'bo' => function ($n) { return 0; }, // Tibetan
       'br' => function ($n) { return ($n>1) ? 1 : 0; }, // Breton
-      'bs' => function ($n) { return ($n%10==1 && $n%100!=11 ? 0 : $n%10>=2 && $n%10<=4 && ($n%100<10 || $n%100>=20) ? 1 : 2); }, // Bosnian
+      'bs' => function ($n) { return ($n%10==1 && $n%100!=11 ? 0 : ($n%10>=2 && $n%10<=4 && ($n%100<10 || $n%100>=20) ? 1 : 2)); }, // Bosnian
 
       'ca' => function ($n) { return ($n!=1) ? 1 : 0; }, // Catalan
       'cgg' => function ($n) { return 0; }, // Chiga
-      'cs' => function ($n) { return ($n==1) ? 0 : ($n>=2 && $n<=4) ? 1 : 2; }, // Czech
-      'csb' => function ($n) { return $n==1 ? 0 : $n%10>=2 && $n%10<=4 && ($n%100<10 || $n%100>=20) ? 1 : 2; }, // Kashubian
-      'cy' => function ($n) { return ($n==1) ? 0 : ($n==2) ? 1 : ($n!=8 && $n!=11) ? 2 : 3; }, // Welsh
+      'cs' => function ($n) { return ($n==1) ? 0 : (($n>=2 && $n<=4) ? 1 : 2); }, // Czech
+      'csb' => function ($n) { return $n==1 ? 0 : ($n%10>=2 && $n%10<=4 && ($n%100<10 || $n%100>=20) ? 1 : 2); }, // Kashubian
+      'cy' => function ($n) { return ($n==1) ? 0 : (($n==2) ? 1 : (($n!=8 && $n!=11) ? 2 : 3)); }, // Welsh
 
       'da' => function ($n) { return ($n!=1) ? 1 : 0; }, // Danish
       'de' => function ($n) { return ($n!=1) ? 1 : 0; }, // German
@@ -66,7 +69,7 @@ class Plurr {
       'fur' => function ($n) { return ($n!=1) ? 1 : 0; }, // Friulian
       'fy' => function ($n) { return ($n!=1) ? 1 : 0; }, // Frisian
 
-      'ga' => function ($n) { return $n==1 ? 0 : $n==2 ? 1 : $n<7 ? 2 : $n<11 ? 3 : 4; }, // Irish
+      'ga' => function ($n) { return $n==1 ? 0 : ($n==2 ? 1 : ($n<7 ? 2 : $n<11 ? 3 : 4)); }, // Irish
       'gl' => function ($n) { return ($n!=1) ? 1 : 0; }, // Galician
       'gu' => function ($n) { return ($n!=1) ? 1 : 0; }, // Gujarati
       'gun' => function ($n) { return ($n>1) ? 1 : 0; }, // Gun
@@ -75,7 +78,7 @@ class Plurr {
       'he' => function ($n) { return ($n!=1) ? 1 : 0; }, // Hebrew
       'hi' => function ($n) { return ($n!=1) ? 1 : 0; }, // Hindi
       'hy' => function ($n) { return 0; }, // Armenian
-      'hr' => function ($n) { return ($n%10==1 && $n%100!=11 ? 0 : $n%10>=2 && $n%10<=4 && ($n%100<10 || $n%100>=20) ? 1 : 2); }, // Croatian
+      'hr' => function ($n) { return ($n%10==1 && $n%100!=11 ? 0 : ($n%10>=2 && $n%10<=4 && ($n%100<10 || $n%100>=20) ? 1 : 2)); }, // Croatian
       'hu' => function ($n) { return ($n!=1) ? 1 : 0; }, // Hungarian
 
       'ia' => function ($n) { return ($n!=1) ? 1 : 0; }, // Interlingua
@@ -92,14 +95,14 @@ class Plurr {
       'kn' => function ($n) { return ($n!=1) ? 1 : 0; }, // Kannada
       'ko' => function ($n) { return 0; }, // Korean
       'ku' => function ($n) { return ($n!=1) ? 1 : 0; }, // Kurdish
-      'kw' => function ($n) { return ($n==1) ? 0 : ($n==2) ? 1 : ($n==3) ? 2 : 3; }, // Cornish
+      'kw' => function ($n) { return ($n==1) ? 0 : (($n==2) ? 1 : (($n==3) ? 2 : 3)); }, // Cornish
       'ky' => function ($n) { return 0; }, // Kyrgyz
 
       'lb' => function ($n) { return ($n!=1); }, // Letzeburgesch
       'ln' => function ($n) { return ($n>1) ? 1 : 0; }, // Lingala
       'lo' => function ($n) { return 0; }, // Lao
-      'lt' => function ($n) { return ($n%10==1 && $n%100!=11 ? 0 : $n%10>=2 && ($n%100<10 || $n%100>=20) ? 1 : 2); }, // Lithuanian
-      'lv' => function ($n) { return ($n%10==1 && $n%100!=11 ? 0 : $n!=0 ? 1 : 2); }, // Latvian
+      'lt' => function ($n) { return ($n%10==1 && $n%100!=11 ? 0 : ($n%10>=2 && ($n%100<10 || $n%100>=20) ? 1 : 2)); }, // Lithuanian
+      'lv' => function ($n) { return ($n%10==1 && $n%100!=11 ? 0 : ($n!=0 ? 1 : 2)); }, // Latvian
 
       'mfe' => function ($n) { return ($n>1) ? 1 : 0; }, // Mauritian Creole
       'mg' => function ($n) { return ($n>1) ? 1 : 0; }, // Malagasy
@@ -109,7 +112,7 @@ class Plurr {
       'mn' => function ($n) { return ($n!=1) ? 1 : 0; }, // Mongolian
       'mr' => function ($n) { return ($n!=1) ? 1 : 0; }, // Marathi
       'ms' => function ($n) { return 0; }, // Malay
-      'mt' => function ($n) { return ($n==1 ? 0 : $n==0 || ( $n%100>1 && $n%100<11) ? 1 : ($n%100>10 && $n%100<20 ) ? 2 : 3); }, // Maltese
+      'mt' => function ($n) { return ($n==1 ? 0 : ($n==0 || ( $n%100>1 && $n%100<11) ? 1 : (($n%100>10 && $n%100<20 ) ? 2 : 3))); }, // Maltese
 
       'nah' => function ($n) { return ($n!=1) ? 1 : 0; }, // Nahuatl
       'nap' => function ($n) { return ($n!=1) ? 1 : 0; }, // Neapolitan
@@ -134,16 +137,16 @@ class Plurr {
 
       'rm' => function ($n) { return ($n!=1); }, // Romansh
       'ro' => function ($n) { return ($n==1 ? 0 : ($n==0 || ($n%100>0 && $n%100<20)) ? 1 : 2); }, // Romanian
-      'ru' => function ($n) { return ($n%10==1 && $n%100!=11 ? 0 : $n%10>=2 && $n%10<=4 && ($n%100<10 || $n%100>=20) ? 1 : 2); }, // Russian
+      'ru' => function ($n) { return ($n%10==1 && $n%100!=11 ? 0 : ($n%10>=2 && $n%10<=4 && ($n%100<10 || $n%100>=20) ? 1 : 2)); }, // Russian
 
       'sco' => function ($n) { return ($n!=1) ? 1 : 0; }, // Scots
       'si' => function ($n) { return ($n!=1) ? 1 : 0; }, // Sinhala
       'sk' => function ($n) { return ($n==1) ? 0 : ($n>=2 && $n<=4) ? 1 : 2; }, // Slovak
-      'sl' => function ($n) { return ($n%100==1 ? 1 : $n%100==2 ? 2 : $n%100==3 || $n%100==4 ? 3 : 0); }, // Slovenian
+      'sl' => function ($n) { return ($n%100==1 ? 1 : ($n%100==2 ? 2 : ($n%100==3 || $n%100==4 ? 3 : 0))); }, // Slovenian
       'so' => function ($n) { return ($n!=1) ? 1 : 0; }, // Somali
       'son' => function ($n) { return 0; }, // Songhay
       'sq' => function ($n) { return ($n!=1) ? 1 : 0; }, // Albanian
-      'sr' => function ($n) { return ($n%10==1 && $n%100!=11 ? 0 : $n%10>=2 && $n%10<=4 && ($n%100<10 || $n%100>=20) ? 1 : 2); }, // Serbian
+      'sr' => function ($n) { return ($n%10==1 && $n%100!=11 ? 0 : ($n%10>=2 && $n%10<=4 && ($n%100<10 || $n%100>=20) ? 1 : 2)); }, // Serbian
       'su' => function ($n) { return 0; }, // Sundanese
       'sw' => function ($n) { return ($n!=1) ? 1 : 0; }, // Swahili
       'sv' => function ($n) { return ($n!=1) ? 1 : 0; }, // Swedish
@@ -158,7 +161,7 @@ class Plurr {
       'tt' => function ($n) { return 0; }, // Tatar
 
       'ug' => function ($n) { return 0; }, // Uyghur
-      'uk' => function ($n) { return ($n%10==1 && $n%100!=11 ? 0 : $n%10>=2 && $n%10<=4 && ($n%100<10 || $n%100>=20) ? 1 : 2); }, // Ukrainian
+      'uk' => function ($n) { return ($n%10==1 && $n%100!=11 ? 0 : ($n%10>=2 && $n%10<=4 && ($n%100<10 || $n%100>=20) ? 1 : 2)); }, // Ukrainian
       'ur' => function ($n) { return ($n!=1) ? 1 : 0; }, // Urdu
       'uz' => function ($n) { return 0; }, // Uzbek
 
@@ -187,11 +190,26 @@ class Plurr {
     if (gettype($params) != 'array') {
       throw new Exception("'params' is not a hash");
     }
-    $options = $options ? $options : $this->options;
+
+    if (isset($options) && (gettype($options) != 'array')) {
+      throw new Exception("'options' is not a hash");
+    }
+
+    $options = isset($options) ? $options : array();
+
+    $plural_func = array_key_exists('locale', $options) ?
+      $this->plural_equations[$options['locale']] :
+      $this->plural;
+
+    if (!isset($plural_func)) {
+      $plural_func = $this->plural_equations['en'];
+    }
+
+    $options = $options + $this->default_options;
+
     $strict = !!$options['strict'];
     $auto_plurals = !!$options['auto_plurals'];
     $callback = isset($options['callback']) ? $options['callback'] : null;
-    $plural = $this->plural;
 
     $chunks = preg_split('/([\{\}])/', $s, null, PREG_SPLIT_DELIM_CAPTURE);
     $blocks = array('');
@@ -240,7 +258,7 @@ class Plurr {
               $prefix_value = 0;
             }
 
-            $params[$name] = $plural($prefix_value);
+            $params[$name] = $plural_func($prefix_value);
           } else {
             if ($callback) {
               $params[$name] = $callback($name);

@@ -4,11 +4,21 @@ function Plurr(options) {
   //
   // Initialize object
   //
-  var default_options = options || {
+
+  this.add_missing_options = function(opt, defaults) {
+    for (prop in defaults) {
+      if (!opt.hasOwnProperty(prop)) {
+        opt[prop] = defaults[prop];
+      }
+    }
+  }
+
+  var default_options = options || {};
+  this.add_missing_options(default_options, {
     'locale': 'en',
     'auto_plurals': true,
     'strict': true
-  };
+  });
 
   //
   // list of plural equations taken from
@@ -20,7 +30,7 @@ function Plurr(options) {
     'ak': function(n) { return (n>1) ? 1 : 0; }, // Akan
     'am': function(n) { return (n>1) ? 1 : 0; }, // Amharic
     'an': function(n) { return (n!=1) ? 1 : 0; }, // Aragonese
-    'ar': function(n) { return n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5; }, // Arabic notes
+    'ar': function(n) { return n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5; }, // Arabic
     'arn': function(n) { return (n>1) ? 1 : 0; }, // Mapudungun
     'ast': function(n) { return (n!=1) ? 1 : 0; }, // Asturian
     'ay': function(n) { return 0; }, // Aymara
@@ -176,7 +186,19 @@ function Plurr(options) {
     if (typeof(params) != 'object') {
       throw "'params' is not a hash";
     }
-    options = options || default_options;
+
+    if ((typeof(options) != 'undefined') && (typeof(options) != 'object')) {
+      throw "'options' is not a hash";
+    }
+
+    options = options || {};
+
+    var plural_func = options.locale != "" ?
+      plural_equations[options.locale] || plural_equations['en'] :
+      this.plural;
+
+    this.add_missing_options(options, default_options);
+
     var strict = !!options['strict'];
     var auto_plurals = !!options['auto_plurals'];
     var callback = options['callback'];
@@ -230,7 +252,7 @@ function Plurr(options) {
               prefix_value = 0;
             }
 
-            params[name] = this.plural(prefix_value);
+            params[name] = plural_func(prefix_value);
           } else {
             if (callback) {
               params[name] = callback(name);

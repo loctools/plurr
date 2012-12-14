@@ -7,19 +7,28 @@ my $VERSION = '1.0';
 use strict;
 
 #
+# Merge two arrays
+#
+sub add_missing_options {
+  my ($opt, $defaults) = @_;
+  map { $opt->{$_} = $defaults->{$_} unless exists $opt->{$_} } keys %$defaults;
+} # sub add_missing_options
+
+#
 # Initialize object
 #
 sub new {
   my ($class, $options) = @_;
 
-  $options ||= {
+  $options = {} unless $options;
+  add_missing_options($options, {
     locale => 'en',
     auto_plurals => 1,
     strict => 1
-  };
+  });
 
   my $self = {
-    _options => $options,
+    _default_options => $options,
     _plural => undef
   };
 
@@ -41,7 +50,7 @@ my $_plural_equations = {
   'ak' => sub { my $n = shift; return ($n>1) ? 1 : 0; }, # Akan
   'am' => sub { my $n = shift; return ($n>1) ? 1 : 0; }, # Amharic
   'an' => sub { my $n = shift; return ($n!=1) ? 1 : 0; }, # Aragonese
-  'ar' => sub { my $n = shift; return $n==0 ? 0 : $n==1 ? 1 : $n==2 ? 2 : $n%100>=3 && $n%100<=10 ? 3 : $n%100>=11 ? 4 : 5; }, # Arabic notes
+  'ar' => sub { my $n = shift; return $n==0 ? 0 : $n==1 ? 1 : $n==2 ? 2 : $n%100>=3 && $n%100<=10 ? 3 : $n%100>=11 ? 4 : 5; }, # Arabic
   'arn' => sub { my $n = shift; return ($n>1) ? 1 : 0; }, # Mapudungun
   'ast' => sub { my $n = shift; return ($n!=1) ? 1 : 0; }, # Asturian
   'ay' => sub { my $n = shift; return 0; }, # Aymara
@@ -199,7 +208,19 @@ sub format {
   if (ref($params) ne 'HASH') {
     die "'params' is not a hash\n";
   }
-  $options ||= $self->{_options};
+
+  if ((defined $options) && (ref($options) ne 'HASH')) {
+    die "'options' is not a hash\n";
+  }
+
+  $options = {} unless $options;
+
+  my $plural_func = $options->{locale} ?
+    $_plural_equations->{$options->{locale}} || $_plural_equations->{'en'} :
+    $self->{_plural};
+
+  add_missing_options($options, $self->{_default_options});
+
   my $strict = !!$options->{strict};
   my $auto_plurals = !!$options->{auto_plurals};
   my $callback = $options->{callback};
@@ -254,7 +275,7 @@ sub format {
             $prefix_value = 0;
           }
 
-          $params->{$name} = $self->{_plural}($prefix_value);
+          $params->{$name} = &$plural_func($prefix_value);
         } else {
           if ($callback) {
             $params->{$name} = &$callback($name);

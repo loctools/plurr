@@ -37,3 +37,10 @@ $s = 'Do you want to drink {CHOICE:coffee|tea|juice}?';
 t('2.1', $p, $s, array('CHOICE' => 0), null, 'Do you want to drink coffee?');
 t('2.2', $p, $s, array('CHOICE' => 1), null, 'Do you want to drink tea?');
 t('2.3', $p, $s, array('CHOICE' => 2), null, 'Do you want to drink juice?');
+
+$s = 'Удалить {N_PLURAL:этот {N} файл|эти {N} файла|эти {N} файлов} навсегда?';
+
+t('3.1', $p, $s, array('N' => 1), array('locale' => 'ru'), 'Удалить этот 1 файл навсегда?');
+t('3.2', $p, $s, array('N' => 2), array('locale' => 'ru'), 'Удалить эти 2 файла навсегда?');
+t('3.3', $p, $s, array('N' => 5), array('locale' => 'ru'), 'Удалить эти 5 файлов навсегда?');
+t('3.4', $p, $s, array('N' => 5), null, 'Удалить эти 5 файла навсегда?');

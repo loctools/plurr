@@ -14,14 +14,15 @@ $(document).ready(function() {
   var html = '';
   for (option in plural_options) {
     var sel = option == 'en' ? ' selected' : ''
-    html += '<option value="' + option + '"' + sel + '>"' + option + '" &mdash; ' + plural_options[option] + '</option>';
+    html += '<option value="' + option + '"' + sel + '>' + option + ' &mdash; ' + plural_options[option] + '</option>';
   }
   $('#locale').html(html);
 
   change_source();
 
-  $('#auto_plurals').change(change_source);
-  $('#strict').change(change_param);
+  $('#locale').on('change', change_locale);
+  $('#auto_plurals').on('change', change_source);
+  $('#strict').on('change', change_param);
   $(document).on('change keyup cut paste', '#params input', change_param);
 });
 
@@ -30,6 +31,10 @@ function cb(name) {
   params_keys += "\n" + name; // using newline as a delimiter
   params_html += '<tr><td><code>' + name + ':</code></td><td><input id="param_'+name+'" param="'+name+'" value="'+value+'" /></td></tr>';
   return value;
+}
+
+function change_locale() {
+  return _change(true);
 }
 
 function change_source() {
