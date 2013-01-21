@@ -211,7 +211,7 @@ class Plurr {
     $auto_plurals = !!$options['auto_plurals'];
     $callback = isset($options['callback']) ? $options['callback'] : null;
 
-    $chunks = preg_split('/([\{\}])/', $s, null, PREG_SPLIT_DELIM_CAPTURE);
+    $chunks = preg_split('/((?<!\\\)[{}])/', $s, null, PREG_SPLIT_DELIM_CAPTURE);
     $blocks = array('');
     $bracket_count = 0;
     for ($i = 0, $ch_len = count($chunks); $i < $ch_len; $i++) {
@@ -310,7 +310,7 @@ class Plurr {
       throw new Exception("Unmatched { found");
     }
 
-    return $blocks[0];
+    return preg_replace('~\\\([{}])~iu', '$1', $blocks[0]);
   } // function format
 
 } // class
