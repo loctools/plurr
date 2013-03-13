@@ -190,7 +190,7 @@ In other cases, the number (X) is displayed.
 
 #### Same example in Russian:
 
-    {X_PLURAL:Найден {X:|один|{X}} файл|найдены {X} файла|{X:Не найдено|найдено {X}} файлов}.
+    {X_PLURAL:Найден {X:|один|{X}} файл|Найдены {X} файла|{X:Не найдено|Найдено {X}} файлов}.
 
 Another common scenario is to display a completely different message for a
 certain condition (the number of files is zero):
