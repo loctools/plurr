@@ -267,10 +267,10 @@ sub format {
             die "Neither '$name' nor '$prefix' are defined\n";
           }
 
-          my $prefix_value = $params->{$prefix};
-          if (0 + $prefix_value ne $prefix_value) {
+          my $prefix_value = int($params->{$prefix});
+          if (($prefix_value ne $params->{$prefix}) || ($prefix_value < 0)) {
             if ($strict) {
-              die "Value of '$prefix' is not a number\n";
+              die "Value of '$prefix' is not a zero or positive integer number\n";
             }
             $prefix_value = 0;
           }
@@ -296,10 +296,10 @@ sub format {
           die 'Empty list of variants';
         }
 
-        my $choice_idx = $params->{$name};
-        if ((0 + $choice_idx ne $choice_idx) || ($choice_idx < 0)) {
+        my $choice_idx = int($params->{$name});
+        if (($choice_idx ne $params->{$name}) || ($choice_idx < 0)) {
           if ($strict) {
-            die "Value of '$name' is not a zero or positive number\n";
+            die "Value of '$name' is not a zero or positive integer number\n";
           }
           $choice_idx = 0;
         }

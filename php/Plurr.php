@@ -250,10 +250,10 @@ class Plurr {
               throw new Exception("Neither '$name' nor '$prefix' are defined");
             }
 
-            $prefix_value = $params[$prefix];
-            if ((''.(0 + $prefix_value) !== "$prefix_value")) {
+            $prefix_value = (int) $params[$prefix];
+            if (((string) $prefix_value !== (string) $params[$prefix]) || ($prefix_value < 0)) {
               if ($strict) {
-                throw new Exception("Value of '$prefix' is not a number");
+                throw new Exception("Value of '$prefix' is not a zero or positive integer number");
               }
               $prefix_value = 0;
             }
@@ -277,10 +277,10 @@ class Plurr {
             throw new Exception('Empty list of variants');
           }
 
-          $choice_idx = $params[$name];
-          if ((''.(0 + $choice_idx) !== "$choice_idx") || ($choice_idx < 0)) {
+          $choice_idx = (int) $params[$name];
+          if (((string) $choice_idx !== (string) $params[$name]) || ($choice_idx < 0)) {
             if ($strict) {
-              throw new Exception("Value of '$name' is not a zero or positive number");
+              throw new Exception("Value of '$name' is not a zero or positive integer number");
             }
             $choice_idx = 0;
           }

@@ -244,10 +244,10 @@ function Plurr(options) {
               throw "Neither '"+name+"' nor '"+prefix+"' are defined";
             }
 
-            var prefix_value = params[prefix];
-            if (isNaN(prefix_value)) {
+            var prefix_value = parseInt(params[prefix]);
+            if (prefix_value != params[prefix] || (prefix_value < 0)) {
               if (strict) {
-                throw "Value of '"+prefix+"' is not a number";
+                throw "Value of '"+prefix+"' is not a zero or positive integer number";
               }
               prefix_value = 0;
             }
@@ -273,10 +273,10 @@ function Plurr(options) {
             throw "Empty list of variants";
           }
 
-          var choice_idx = params[name];
-          if (isNaN(choice_idx) || (choice_idx < 0)) {
+          var choice_idx = parseInt(params[name]);
+          if (choice_idx != params[name] || (choice_idx < 0)) {
             if (strict) {
-              throw "Value of '"+name+"' is not a zero or positive number";
+              throw "Value of '"+name+"' is not a zero or positive integer number";
             }
             choice_idx = 0;
           }

@@ -38,7 +38,8 @@ t('e.1', $p, '', undef, undef, '', "'params' is not a hash");
 t('e.2', $p, 'err {', {}, undef, '', "Unmatched { found");
 t('e.3', $p, 'err }', {}, undef, '', "Unmatched } found");
 t('e.4', $p, '{foo}', {}, undef, '', "'foo' not defined");
-t('e.5', $p, '{N_PLURAL}', {'N' => 'NaN'}, undef, '', "Value of 'N' is not a number");
+t('e.5', $p, '{N_PLURAL}', {'N' => 'NaN'}, undef, '', "Value of 'N' is not a zero or positive integer number");
+t('e.6', $p, '{N_PLURAL}', {'N' => 1.5}, undef, '', "Value of 'N' is not a zero or positive integer number");
 
 $s = 'Do you want to delete {N_PLURAL:this {N} file|these {N} files} permanently?';
 
@@ -64,6 +65,10 @@ t('4.1', $p, $s, {'X' => 0}, undef, 'No files found.');
 t('4.2', $p, $s, {'X' => 1}, undef, 'One file found.');
 t('4.3', $p, $s, {'X' => 2}, undef, '2 files found.');
 
+t('4.4', $p, $s, {'X' => '0'}, undef, 'No files found.');
+t('4.5', $p, $s, {'X' => '1'}, undef, 'One file found.');
+t('4.6', $p, $s, {'X' => '2'}, undef, '2 files found.');
+
 $s = '{X_PLURAL:Найден {X:|один|{X}} файл|Найдены {X} файла|{X:Не найдено|Найдено {X}} файлов}.';
 
 t('5.1', $p, $s, {'X' => 0}, {'locale' => 'ru'}, 'Не найдено файлов.');
@@ -71,3 +76,8 @@ t('5.2', $p, $s, {'X' => 1}, {'locale' => 'ru'}, 'Найден один файл
 t('5.3', $p, $s, {'X' => 2}, {'locale' => 'ru'}, 'Найдены 2 файла.');
 t('5.4', $p, $s, {'X' => 5}, {'locale' => 'ru'}, 'Найдено 5 файлов.');
 
+$s = '{FOO}';
+
+t('6.1', $p, $s, {'FOO' => 1}, undef, '1');
+t('6.2', $p, $s, {'FOO' => 5.5}, undef, '5.5');
+t('6.3', $p, $s, {'FOO' => 'bar'}, undef, 'bar');
