@@ -64,7 +64,7 @@ function _change(rebuild_params) {
       options = {
         'locale': $('#locale').val(),
         'auto_plurals': !!$('#auto_plurals').attr('checked'),
-        'strict': true,
+        'strict': false,
         'callback': cb,
       };
       params_keys = '';
