@@ -97,7 +97,7 @@ function _change(rebuild_params) {
 
   } catch (e) {
 
-    $('#error').text('Exception:' + e);
+    $('#error').text('Exception: ' + e);
     $('#output').text('');
   }
 
