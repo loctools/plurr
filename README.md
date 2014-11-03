@@ -11,7 +11,7 @@ translator-friendly, like Java's MessageFormat/ChoiceFormat.
 developers and understandale for translators yet robust to support different
 language requirements.
 
-[Try live demo &rarr;](http://a-i-studio.com/plurr-demo/)
+[Try live demo &rarr;](http://iafan.github.io/plurr-demo/)
 ===============
 
 Currently Plurr is implemented in:
