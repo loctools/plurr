@@ -8,6 +8,9 @@ var p = new Plurr();
 var param_cache = {};
 param_cache['N'] = 5;
 
+var current_query;
+var prevent_hash_update;
+
 $(document).ready(function() {
   editor = CodeMirror.fromTextArea(document.getElementById("source"), {onChange: change_source});
 
@@ -18,13 +21,49 @@ $(document).ready(function() {
   }
   $('#locale').html(html);
 
+  update_from_hash();
   change_source();
 
   $('#locale').on('change', change_locale);
   $('#auto_plurals').on('change', change_source);
   $('#strict').on('change', change_param);
   $(document).on('change keyup cut paste', '#params input', change_param);
+
+  $(window).on('hashchange', update_from_hash);
 });
+
+function update_from_hash() {
+  new_query = window.location.hash.substr(1); // strip leading '#' symbol
+  if (new_query != '') {
+    deserialize(new_query);
+  }
+}
+
+function deserialize(query) {
+  var options = jQuery.deparam(query);
+
+  prevent_hash_update = true;
+  $('#locale').val(options.locale);
+  $('#auto_plurals').attr('checked', !!options.auto_plurals);
+  $('#strict').attr('checked', !!options.strict);
+  editor.setValue(options.s ? options.s : '');
+
+  $('#params input').each(function(idx, elem) {
+    var name = $(elem).attr('param');
+    $(elem).val(options.p[name]);
+  });
+
+  prevent_hash_update = false;
+}
+
+function serialize(s, params, options) {
+  var out = options;
+  out.s = s;
+  out.p = params;
+
+  current_query = jQuery.param(out);
+  window.location.hash = current_query;
+}
 
 function cb(name) {
   var value = param_cache[name] || '';
@@ -90,6 +129,11 @@ function _change(rebuild_params) {
       'auto_plurals': !!$('#auto_plurals').attr('checked'),
       'strict': !!$('#strict').attr('checked'),
     };
+
+    if (!prevent_hash_update) {
+      serialize(s, params, options);
+    }
+
     out = p.format(s, params, options);
 
     $('#error').text('');
