@@ -1,14 +1,14 @@
 About Plurr
 ===========
 
-Handling plurals is not a particulalrly easy task for programmers, especially if
+Handling plurals is not a particularly easy task for programmers, especially if
 they are not familiar with anything except their mother tongue. Existing
 approaches are either platform-specific (like gettext/po), or have limitations
 (for example you can't have multiple plurals in one string), or not particularly
 translator-friendly, like Java's MessageFormat/ChoiceFormat.
 
 **Plurr is a universal format specification** designed to be easy to support for
-developers and understandale for translators yet robust to support different
+developers and understandable for translators yet robust to support different
 language requirements.
 
 [Try live demo &rarr;](http://iafan.github.io/plurr-demo/)
@@ -21,7 +21,7 @@ Currently Plurr is implemented in:
   * Perl
   * PHP
 
-Also there's a Plurr [syntax highlighter](https://github.com/iafan/Plurr/tree/master/demo/js/codemirror/mode/plurr) avilable for [CodeMirror](http://codemirror.net/),
+Also there's a Plurr [syntax highlighter](https://github.com/iafan/Plurr/tree/master/demo/js/codemirror/mode/plurr) available for [CodeMirror](http://codemirror.net/),
 which is also a part of the live demo.
 
 Feel free to contribute to this project and provide implementations for your
@@ -120,7 +120,7 @@ where:
   * `FORM0`, `FORM1` and so on are the alternative versions of the string for
     each value of CHOICE (starting from 0).
 
-If less forms are provided than the value of `CHOICE`, the last form is used. 
+If less forms are provided than the value of `CHOICE`, the last form is used.
 
 As `|` is used to delimit different alternatives, in order to display such
 symbol in the final string, replace it with named placeholder with the
@@ -169,8 +169,8 @@ to display different verbs.
 
 Handling genders is the same as handling any other type of placeholders. You
 just need to provide a parameter (let's name it `GENDER`), which evaluates to,
-say, `0` for male, `1` for feemale, and `2` in case the gender is unknown (the
-way you number genders is purely arbitary, but we recommend sticking to some
+say, `0` for male, `1` for female, and `2` in case the gender is unknown (the
+way you number genders is purely arbitrary, but we recommend sticking to some
 scheme that you use consistently across your application). Then all you need to
 do is to construct a message like this:
 
