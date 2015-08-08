@@ -259,7 +259,6 @@ sub format {
       }
 
       if (!exists $params->{$name}) {
-        my $parts;
         my $p_pos = index($name, $_PLURAL);
         if ($auto_plurals && ($p_pos != -1) && ($p_pos == (length($name) - length($_PLURAL)))) {
           my $prefix = substr($name, 0, $p_pos);

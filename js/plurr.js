@@ -236,7 +236,6 @@ function Plurr(options) {
         }
 
         if (!(name in params)) {
-          var parts;
           var p_pos = name.indexOf(_PLURAL);
           if (auto_plurals && (p_pos != -1) && (p_pos == (name.length - _PLURAL.length))) {
             var prefix = name.substr(0, p_pos);
