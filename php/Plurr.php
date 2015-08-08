@@ -179,7 +179,7 @@ class Plurr {
 
   //
   // Choose the plural function based on locale name
-  // 
+  //
   public function locale($locale) {
     $this->plural = $this->plural_equations[$locale];
   } // function locale
