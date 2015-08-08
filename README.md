@@ -16,6 +16,7 @@ language requirements.
 
 Currently Plurr is implemented in:
 
+  * Java
   * JavaScript
   * Perl
   * PHP
@@ -135,7 +136,7 @@ will render as:
   * N = 1, N_PLURAL = 0: `1 file`
   * N = 2, N_PLURAL = 1: `2 files`
   * N = 5, N_PLURAL = 1: `5 files`
- 
+
 #### Example of the same string translated into Russian:
 
     {N_PLURAL:{N} файл|{N} файла|{N} файлов}
@@ -194,7 +195,7 @@ In other cases, the number (X) is displayed.
 
 Another common scenario is to display a completely different message for a
 certain condition (the number of files is zero):
-   
+
     {X:Sorry, but no files were found. Please try again.|{X_PLURAL:{X} file|{X} files} found.}
 
 Such an approach allows translators to provide most natural translation
