@@ -1,3 +1,5 @@
+// Copyright (C) 2015 Igor Afanasyev, https://github.com/iafan/Plurr
+
 package com.iafan.plurr;
 
 import java.lang.reflect.InvocationTargetException;
