@@ -20,6 +20,7 @@ Currently Plurr is implemented in:
   * JavaScript
   * Perl
   * PHP
+  * Python
 
 Also there's a Plurr [syntax highlighter](https://github.com/iafan/Plurr/tree/master/demo/js/codemirror/mode/plurr) available for [CodeMirror](http://codemirror.net/),
 which is also a part of the live demo.
