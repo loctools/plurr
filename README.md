@@ -194,6 +194,8 @@ In other cases, the number (X) is displayed.
 
     {X_PLURAL:Найден {X:|один|{X}} файл|Найдены {X} файла|{X:Не найдено|Найдено {X}} файлов}.
 
+### 6. Handling special cases
+
 Another common scenario is to display a completely different message for a
 certain condition (the number of files is zero):
 
@@ -201,4 +203,4 @@ certain condition (the number of files is zero):
 
 Such an approach allows translators to provide most natural translation
 possible, and gives some peace of mind to developers helping them reduce the
-amount of supporting if/else code in their applications.
+amount of supporting `if...else` code in their applications.
