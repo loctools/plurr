@@ -236,17 +236,17 @@ class Plurr(object):
 
                 name = ''
 
-                if strict and (colon_pos == 0):
+                if strict and colon_pos == 0:
                     raise SyntaxError("Empty placeholder name")
 
-                if (colon_pos == -1):  # simple placeholder
+                if colon_pos == -1:  # simple placeholder
                     name = block
                 else:  # multiple choices
                     name = block[0:colon_pos]
 
                 if name not in params:
                     p_pos = name.find(self._PLURAL)
-                    if auto_plurals and (p_pos != -1) and (p_pos == (len(name) - len(self._PLURAL))):
+                    if auto_plurals and p_pos != -1 and p_pos == len(name) - len(self._PLURAL):
                         prefix = name[0:p_pos]
                         if strict and prefix not in params:
                             raise LookupError("Neither '{0}' nor '{1}' are defined".format(name, prefix))
@@ -274,7 +274,7 @@ class Plurr(object):
                 else:  # multiple choices
                     block_len = len(block)
 
-                    if strict and (colon_pos == block_len - 1):
+                    if strict and colon_pos == block_len - 1:
                         raise SyntaxError('Empty list of variants')
 
                     choice_idx = 0
