@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 # Copyright (C) 2015 Igor Afanasyev, https://github.com/iafan/Plurr
 
 import re
