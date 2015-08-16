@@ -4,6 +4,7 @@
 
 import re
 
+
 class Plurr:
     VERSION = '1.0'
 

@@ -6,6 +6,7 @@ sys.path.append("..")
 
 from plurr import Plurr
 
+
 def t (n, p, s, params, options, message, exception=None):
     result = None
     try:
@@ -17,6 +18,7 @@ def t (n, p, s, params, options, message, exception=None):
     except Exception as e:
         s = '{0}: {1}'.format(e.__class__.__name__, str(e))
         print(n + ": "  + ('pass' if s == exception else "fail: [{0}] vs [{1}]".format(s, exception)))
+
 
 p = Plurr()
 

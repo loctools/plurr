@@ -8,6 +8,7 @@ import time
 
 from plurr import Plurr
 
+
 p = Plurr()
 s = 'Do you want to delete {N_PLURAL:this {N} file|these {N} files} permanently?';
 params = {'N': 5};
