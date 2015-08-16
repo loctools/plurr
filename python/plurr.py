@@ -244,11 +244,11 @@ class Plurr(object):
                 else: # multiple choices
                     name = block[0:colon_pos]
 
-                if not name in params:
+                if name not in params:
                     p_pos = name.find(self._PLURAL)
                     if auto_plurals and (p_pos != -1) and (p_pos == (len(name) - len(self._PLURAL))):
                         prefix = name[0:p_pos]
-                        if strict and not prefix in params:
+                        if strict and prefix not in params:
                             raise LookupError("Neither '{0}' nor '{1}' are defined".format(name, prefix))
 
                         prefix_value = 0
