@@ -242,19 +242,26 @@ class Plurr(object):
 
                 if name not in params:
                     p_pos = name.find(self._PLURAL)
-                    if auto_plurals and p_pos != -1 and p_pos == len(name) - len(self._PLURAL):
+                    if (auto_plurals and p_pos != -1 and
+                        p_pos == len(name) - len(self._PLURAL)):
                         prefix = name[0:p_pos]
                         if strict and prefix not in params:
-                            raise LookupError("Neither '{0}' nor '{1}' are defined".format(name, prefix))
+                            raise LookupError(
+                                "Neither '{0}' nor '{1}' are defined".format(name, prefix)
+                            )
 
                         prefix_value = 0
                         try:
                             prefix_value = int(params[prefix])
-                            if str(params[prefix]) != str(prefix_value) or prefix_value < 0:
+                            if (str(params[prefix]) != str(prefix_value) or
+                                prefix_value < 0):
                                 raise ValueError()
                         except ValueError:
                             if strict:
-                                raise ValueError("Value of '{0}' is not a zero or positive integer number".format(prefix))
+                                raise ValueError(
+                                    "Value of '{0}' is not a zero or positive "
+                                    "integer number".format(prefix)
+                                )
 
                         params[name] = plural_func(prefix_value)
                     else:
@@ -280,7 +287,10 @@ class Plurr(object):
                             raise ValueError()
                     except ValueError:
                         if strict:
-                            raise ValueError("Value of '{0}' is not a zero or positive integer number".format(name))
+                            raise ValueError(
+                                "Value of '{0}' is not a zero or positive "
+                                "integer number".format(name)
+                            )
 
                     n = 0
                     choice_start = colon_pos + 1
