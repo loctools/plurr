@@ -239,6 +239,7 @@ class Plurr(object):
 
                 if strict and (colon_pos == 0):
                     raise SyntaxError("Empty placeholder name")
+
                 if (colon_pos == -1):  # simple placeholder
                     name = block
                 else:  # multiple choices
