@@ -196,14 +196,14 @@ class Plurr(object):
         # TODO: raise error on missing locale
 
     def format(self, s, params, options=None):
+        if options is None:
+            options = {}
+
         if not isinstance(params, dict):
             raise TypeError("'params' is not a dict")
 
-        if options is not None and not isinstance(options, dict):
+        if not isinstance(options, dict):
             raise TypeError("'options' is not a dict")
-
-        if options is None:
-            options = {}
 
         try:
             plural_func = self._plural_equations.get(options['locale'], 'en')
