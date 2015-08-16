@@ -5,7 +5,7 @@
 import re
 
 
-class Plurr:
+class Plurr(object):
     VERSION = '1.0'
 
     plural = None
