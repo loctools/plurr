@@ -7,7 +7,7 @@ sys.path.append("..")
 from plurr import Plurr
 
 
-def t (n, p, s, params, options, message, exception=None):
+def t(n, p, s, params, options, message, exception=None):
     result = None
     try:
         result = p.format(s, params, options)

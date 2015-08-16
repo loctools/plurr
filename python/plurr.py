@@ -195,11 +195,11 @@ class Plurr(object):
     #
     # Choose the plural function based on locale name
     #
-    def locale (self, locale):
+    def locale(self, locale):
         self._plural = self._plural_equations[locale]
         # TODO: raise error on missing locale
 
-    def format (self, s, params, options=None):
+    def format(self, s, params, options=None):
         if not isinstance(params, dict):
             raise TypeError("'params' is not a dict")
 
