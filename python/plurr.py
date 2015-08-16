@@ -11,14 +11,6 @@ class Plurr(object):
     plural = None
 
     #
-    # Merge two arrays
-    #
-    def add_missing_options(self, opt, defaults):
-        o = defaults.copy()
-        o.update(opt)
-        opt.update(o)
-
-    #
     # Initialize object
     #
     def __init__(self, options=None):
@@ -36,6 +28,14 @@ class Plurr(object):
 
         # initialize with the provided or default locale ('en')
         self.locale(options['locale'] or 'en')
+
+    #
+    # Merge two arrays
+    #
+    def add_missing_options(self, opt, defaults):
+        o = defaults.copy()
+        o.update(opt)
+        opt.update(o)
 
     #
     # list of plural equations taken from
