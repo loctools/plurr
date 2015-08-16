@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # Copyright (C) 2015 Igor Afanasyev, https://github.com/iafan/Plurr
 
 import re
