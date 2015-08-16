@@ -169,8 +169,7 @@ class Plurr(object):
     # Initialize object
     #
     def __init__(self, options=None):
-
-        if not options:
+        if options is None:
             options = {}
 
         self.add_missing_options(options, {
@@ -203,10 +202,10 @@ class Plurr(object):
         if not isinstance(params, dict):
             raise TypeError("'params' is not a dict")
 
-        if options and not isinstance(options, dict):
+        if options is not None and not isinstance(options, dict):
             raise TypeError("'options' is not a dict")
 
-        if not options:
+        if options is None:
             options = {}
 
         plural_func = self._plural

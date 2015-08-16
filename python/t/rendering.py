@@ -11,7 +11,7 @@ def t(n, p, s, params, options, message, exception=None):
     result = None
     try:
         result = p.format(s, params, options)
-        if exception:
+        if exception is not None:
             print("n: fail: should produce exception [{0}]".format(exception))
             return
         print(n + ": "  + ('pass' if result == message else "fail: [{0}] vs [{1}]".format(result, message)))
