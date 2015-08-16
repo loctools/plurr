@@ -181,7 +181,7 @@ class Plurr(object):
         self._default_options = options
 
         # initialize with the provided or default locale ('en')
-        self.locale(options['locale'] or 'en')
+        self.locale(options.get('locale', 'en'))
 
     #
     # Merge two arrays
@@ -210,13 +210,13 @@ class Plurr(object):
 
         plural_func = self._plural
         if 'locale' in options:
-            plural_func = self._plural_equations[options['locale']] or self._plural_equations['en']
+            plural_func = self._plural_equations.get(options['locale'], 'en')
 
         self.add_missing_options(options, self._default_options)
 
         strict = options['strict']
         auto_plurals = options['auto_plurals']
-        callback = options['callback'] if 'callback' in options else None
+        callback = options.get('callback', None)
 
         chunks = re.compile("([{}])").split(s)
         blocks = ['']
