@@ -219,9 +219,8 @@ class Plurr(object):
         chunks = re.compile("([{}])").split(s)
         blocks = ['']
         bracket_count = 0
-        for i in xrange(len(chunks)):
-            chunk = chunks[i]
 
+        for chunk in chunks:
             if chunk == '{':
                 bracket_count += 1
                 blocks.append('')
