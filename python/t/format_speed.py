@@ -16,7 +16,7 @@ x = 100000
 start = time.clock()
 
 for i in xrange(x):
-  dummy = p.format(s, params)
+    dummy = p.format(s, params)
 
 end = time.clock()
 time = end - start

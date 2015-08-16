@@ -14,7 +14,7 @@ x = 100000
 start = time.clock()
 
 for i in xrange(x):
-  dummy = p.locale('ru')
+    dummy = p.locale('ru')
 
 end = time.clock()
 time = end - start

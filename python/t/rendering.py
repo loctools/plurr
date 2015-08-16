@@ -7,16 +7,16 @@ sys.path.append("..")
 from plurr import Plurr
 
 def t (n, p, s, params, options, message, exception=None):
-  result = None
-  try:
-    result = p.format(s, params, options)
-    if exception:
-      print("n: fail: should produce exception [{0}]".format(exception))
-      return
-    print(n + ": "  + ('pass' if result == message else "fail: [{0}] vs [{1}]".format(result, message)))
-  except Exception as e:
-    s = '{0}: {1}'.format(e.__class__.__name__, str(e))
-    print(n + ": "  + ('pass' if s == exception else "fail: [{0}] vs [{1}]".format(s, exception)))
+    result = None
+    try:
+        result = p.format(s, params, options)
+        if exception:
+            print("n: fail: should produce exception [{0}]".format(exception))
+            return
+        print(n + ": "  + ('pass' if result == message else "fail: [{0}] vs [{1}]".format(result, message)))
+    except Exception as e:
+        s = '{0}: {1}'.format(e.__class__.__name__, str(e))
+        print(n + ": "  + ('pass' if s == exception else "fail: [{0}] vs [{1}]".format(s, exception)))
 
 p = Plurr()
 
