@@ -208,9 +208,10 @@ class Plurr(object):
         if options is None:
             options = {}
 
-        plural_func = self._plural
-        if 'locale' in options:
+        try:
             plural_func = self._plural_equations.get(options['locale'], 'en')
+        except KeyError:
+            plural_func = self._plural
 
         self.add_missing_options(options, self._default_options)
 
