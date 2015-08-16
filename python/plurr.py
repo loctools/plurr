@@ -165,9 +165,6 @@ class Plurr(object):
         'zh-personal': lambda n: 1 if (n>1) else 0, # Chinese, used in special cases when dealing with personal pronoun
     }
 
-    #
-    # Initialize object
-    #
     def __init__(self, options=None):
         if options is None:
             options = {}
