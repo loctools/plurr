@@ -10,32 +10,7 @@ class Plurr(object):
 
     plural = None
 
-    #
-    # Initialize object
-    #
-    def __init__(self, options=None):
-
-        if not options:
-            options = {}
-
-        self.add_missing_options(options, {
-            'locale': 'en',
-            'auto_plurals': True,
-            'strict': True
-        })
-
-        self._default_options = options
-
-        # initialize with the provided or default locale ('en')
-        self.locale(options['locale'] or 'en')
-
-    #
-    # Merge two arrays
-    #
-    def add_missing_options(self, opt, defaults):
-        o = defaults.copy()
-        o.update(opt)
-        opt.update(o)
+    _PLURAL = '_PLURAL'
 
     #
     # list of plural equations taken from
@@ -191,13 +166,38 @@ class Plurr(object):
     }
 
     #
+    # Initialize object
+    #
+    def __init__(self, options=None):
+
+        if not options:
+            options = {}
+
+        self.add_missing_options(options, {
+            'locale': 'en',
+            'auto_plurals': True,
+            'strict': True
+        })
+
+        self._default_options = options
+
+        # initialize with the provided or default locale ('en')
+        self.locale(options['locale'] or 'en')
+
+    #
+    # Merge two arrays
+    #
+    def add_missing_options(self, opt, defaults):
+        o = defaults.copy()
+        o.update(opt)
+        opt.update(o)
+
+    #
     # Choose the plural function based on locale name
     #
     def locale (self, locale):
         self._plural = self._plural_equations[locale]
         # TODO: raise error on missing locale
-
-    _PLURAL = '_PLURAL'
 
     def format (self, s, params, options=None):
         if not isinstance(params, dict):
