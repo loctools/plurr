@@ -6,7 +6,7 @@ sys.path.append("..")
 
 import time
 
-from Plurr import Plurr
+from plurr import Plurr
 
 p = Plurr()
 s = 'Do you want to delete {N_PLURAL:this {N} file|these {N} files} permanently?';

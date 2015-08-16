@@ -4,7 +4,7 @@
 import sys
 sys.path.append("..")
 
-from Plurr import Plurr
+from plurr import Plurr
 
 def t (n, p, s, params, options, message, exception=None):
   result = None

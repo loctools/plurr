@@ -6,7 +6,7 @@ sys.path.append("..")
 
 import time
 
-from Plurr import Plurr
+from plurr import Plurr
 
 p = Plurr()
 x = 100000
