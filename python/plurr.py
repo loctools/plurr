@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 # Copyright (C) 2015 Igor Afanasyev, https://github.com/iafan/Plurr
 
+__version__ = '1.0'
+
 import re
 
 
 class Plurr(object):
-    VERSION = '1.0'
-
     plural = None
 
     _PLURAL = '_PLURAL'
