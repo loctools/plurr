@@ -12,7 +12,8 @@ var current_query;
 var prevent_hash_update;
 
 $(document).ready(function() {
-  editor = CodeMirror.fromTextArea(document.getElementById("source"), {onChange: change_source});
+  editor = CodeMirror.fromTextArea(document.getElementById("source"));
+  editor.on('change', change_source);
 
   var html = '';
   for (option in plural_options) {
