@@ -10,6 +10,7 @@ param_cache['N'] = 5;
 
 var current_query;
 var prevent_hash_update;
+var prevent_update_from_hash;
 
 $(document).ready(function() {
   editor = CodeMirror.fromTextArea($('#source')[0]);
@@ -34,6 +35,10 @@ $(document).ready(function() {
 });
 
 function update_from_hash() {
+  if (prevent_update_from_hash) {
+    prevent_update_from_hash = false;
+    return;
+  }
   new_query = window.location.hash.substr(1); // strip leading '#' symbol
   if (new_query != '') {
     deserialize(new_query);
@@ -63,6 +68,7 @@ function serialize(s, params, options) {
   out.p = params;
 
   current_query = jQuery.param(out);
+  prevent_update_from_hash = true;
   window.location.hash = current_query;
 }
 
