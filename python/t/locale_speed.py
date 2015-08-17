@@ -6,7 +6,8 @@ sys.path.append("..")
 
 import time
 
-from Plurr import Plurr
+from plurr import Plurr
+
 
 p = Plurr()
 x = 100000
@@ -14,7 +15,7 @@ x = 100000
 start = time.clock()
 
 for i in xrange(x):
-  dummy = p.locale('ru')
+    dummy = p.locale('ru')
 
 end = time.clock()
 time = end - start

@@ -6,7 +6,8 @@ sys.path.append("..")
 
 import time
 
-from Plurr import Plurr
+from plurr import Plurr
+
 
 p = Plurr()
 s = 'Do you want to delete {N_PLURAL:this {N} file|these {N} files} permanently?';
@@ -16,7 +17,7 @@ x = 100000
 start = time.clock()
 
 for i in xrange(x):
-  dummy = p.format(s, params)
+    dummy = p.format(s, params)
 
 end = time.clock()
 time = end - start
