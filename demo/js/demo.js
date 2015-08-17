@@ -12,7 +12,7 @@ var current_query;
 var prevent_hash_update;
 
 $(document).ready(function() {
-  editor = CodeMirror.fromTextArea(document.getElementById("source"));
+  editor = CodeMirror.fromTextArea($('#source')[0]);
   editor.on('change', change_source);
 
   var html = '';
