@@ -10,7 +10,7 @@ Usage
 -----
 
 ```Python
-from Plurr import Plurr
+from plurr import Plurr
 
 p = Plurr() # "en" (English) is a default locale and can be ommitted
 
