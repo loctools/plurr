@@ -1,20 +1,22 @@
 // Copyright (C) 2012 Igor Afanasyev, https://github.com/iafan/Plurr
 
+
+function addMissingOptions (opt, defaults) {
+  for (prop in defaults) {
+    if (!opt.hasOwnProperty(prop)) {
+      opt[prop] = defaults[prop];
+    }
+  }
+}
+
+
 function Plurr(options) {
   //
   // Initialize object
   //
 
-  this.add_missing_options = function(opt, defaults) {
-    for (prop in defaults) {
-      if (!opt.hasOwnProperty(prop)) {
-        opt[prop] = defaults[prop];
-      }
-    }
-  }
-
   var default_options = options || {};
-  this.add_missing_options(default_options, {
+  addMissingOptions(default_options, {
     'locale': 'en',
     'auto_plurals': true,
     'strict': true
@@ -197,7 +199,7 @@ function Plurr(options) {
       plural_equations[options.locale] || plural_equations['en'] :
       this.plural;
 
-    this.add_missing_options(options, default_options);
+    addMissingOptions(options, default_options);
 
     var strict = !!options['strict'];
     var auto_plurals = !!options['auto_plurals'];
