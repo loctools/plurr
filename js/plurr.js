@@ -186,11 +186,11 @@ function Plurr(options) {
   }; // function locale
 
   this.format = function(s, params, options) {
-    if (typeof(params) != 'object') {
+    if (typeof params != 'object') {
       throw "'params' is not a hash";
     }
 
-    if ((typeof(options) != 'undefined') && (typeof(options) != 'object')) {
+    if ((typeof options != 'undefined') && (typeof options != 'object')) {
       throw "'options' is not a hash";
     }
 
