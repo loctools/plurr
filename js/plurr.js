@@ -15,8 +15,8 @@ function Plurr(options) {
   // Initialize object
   //
 
-  var default_options = options || {};
-  addMissingOptions(default_options, {
+  var defaultOptions = options || {};
+  addMissingOptions(defaultOptions, {
     'locale': 'en',
     'auto_plurals': true,
     'strict': true
@@ -26,7 +26,7 @@ function Plurr(options) {
   // list of plural equations taken from
   // http://translate.sourceforge.net/wiki/l10n/pluralforms
   //
-  var plural_equations = {
+  var pluralEquations = {
     'ach': function(n) { return 0; }, // Acholi
     'af': function(n) { return (n!=1) ? 1 : 0; }, // Afrikaans
     'ak': function(n) { return (n>1) ? 1 : 0; }, // Akan
@@ -179,7 +179,7 @@ function Plurr(options) {
   // Choose the plural function based on locale name
   // 
   this.locale = function(locale) {
-    this.plural = plural_equations[locale];
+    this.plural = pluralEquations[locale];
   }; // function locale
 
   var _PLURAL = '_PLURAL';
@@ -195,65 +195,65 @@ function Plurr(options) {
 
     options = options || {};
 
-    var plural_func = options.locale != "" ?
-      plural_equations[options.locale] || plural_equations['en'] :
+    var pluralFunc = options.locale != "" ?
+      pluralEquations[options.locale] || pluralEquations['en'] :
       this.plural;
 
-    addMissingOptions(options, default_options);
+    addMissingOptions(options, defaultOptions);
 
     var strict = !!options['strict'];
-    var auto_plurals = !!options['auto_plurals'];
+    var autoPlurals = !!options['auto_plurals'];
     var callback = options['callback'];
 
     var chunks = s.split(/([\{\}])/);
     var blocks = [''];
-    var bracket_count = 0;
-    for (var i = 0, ch_len = chunks.length; i < ch_len; i++) {
+    var bracketCount = 0;
+    for (var i = 0, chLen = chunks.length; i < chLen; i++) {
       var chunk = chunks[i];
 
       if (chunk == '{') {
-        bracket_count++;
+        bracketCount++;
         blocks.push('');
         continue;
       }
 
       if (chunk == '}') {
-        bracket_count--;
-        if (bracket_count < 0) {
+        bracketCount--;
+        if (bracketCount < 0) {
           throw "Unmatched } found";
         }
         var block = blocks.pop();
-        var colon_pos = block.indexOf(':');
+        var colonPos = block.indexOf(':');
 
-        if (strict && (colon_pos == 0)) {
+        if (strict && (colonPos == 0)) {
           throw "Empty placeholder name";
         }
 
         var name;
 
-        if (colon_pos == -1) { // simple placeholder
+        if (colonPos == -1) { // simple placeholder
           name = block;
         } else { // multiple choices
-          name = block.substr(0, colon_pos);
+          name = block.substr(0, colonPos);
         }
 
         if (!(name in params)) {
-          var p_pos = name.indexOf(_PLURAL);
-          if (auto_plurals && (p_pos != -1) && (p_pos == (name.length - _PLURAL.length))) {
-            var prefix = name.substr(0, p_pos);
+          var pPos = name.indexOf(_PLURAL);
+          if (autoPlurals && (pPos != -1) && (pPos == (name.length - _PLURAL.length))) {
+            var prefix = name.substr(0, pPos);
             if (strict && !(prefix in params)) {
               throw "Neither '"+name+"' nor '"+prefix+"' are defined";
             }
 
-            var prefix_value = parseInt(params[prefix]);
-            if (prefix_value != params[prefix] || (prefix_value < 0)) {
+            var prefixValue = parseInt(params[prefix]);
+            if (prefixValue != params[prefix] || (prefixValue < 0)) {
               if (strict) {
                 throw "Value of '"+prefix+"' is not a zero or positive integer number";
               }
-              prefix_value = 0;
+              prefixValue = 0;
             }
 
-            params[name] = plural_func(prefix_value);
+            params[name] = pluralFunc(prefixValue);
           } else {
             if (callback) {
               params[name] = callback(name);
@@ -265,36 +265,36 @@ function Plurr(options) {
 
         var result;
 
-        if (colon_pos == -1) { // simple placeholder
+        if (colonPos == -1) { // simple placeholder
           result = params[name];
         } else { // multiple choices
-          var block_len = block.length;
+          var blockLen = block.length;
 
-          if (strict && (colon_pos == block_len - 1)) {
+          if (strict && (colonPos == blockLen - 1)) {
             throw "Empty list of variants";
           }
 
-          var choice_idx = parseInt(params[name]);
-          if (choice_idx != params[name] || (choice_idx < 0)) {
+          var choiceIdx = parseInt(params[name]);
+          if (choiceIdx != params[name] || (choiceIdx < 0)) {
             if (strict) {
               throw "Value of '"+name+"' is not a zero or positive integer number";
             }
-            choice_idx = 0;
+            choiceIdx = 0;
           }
           var n = 0;
-          var choice_start = colon_pos + 1;
-          var choice_end = block_len;
+          var choiceStart = colonPos + 1;
+          var choiceEnd = blockLen;
           var j = -1;
 
           while ((j = block.indexOf('|', j + 1)) != -1) {
             n++;
-            if (n <= choice_idx) {
-              choice_start = j + 1;
-            } else if (n == choice_idx + 1) {
-              choice_end = j;
+            if (n <= choiceIdx) {
+              choiceStart = j + 1;
+            } else if (n == choiceIdx + 1) {
+              choiceEnd = j;
             }
           }
-          result = block.substr(choice_start, choice_end - choice_start);
+          result = block.substr(choiceStart, choiceEnd - choiceStart);
         }
 
         blocks[blocks.length - 1] += result;
@@ -303,7 +303,7 @@ function Plurr(options) {
       blocks[blocks.length - 1] += chunk;
     }
 
-    if (bracket_count > 0) {
+    if (bracketCount > 0) {
       throw "Unmatched { found";
     }
 
@@ -311,5 +311,5 @@ function Plurr(options) {
   }; // function format
 
   // initialize with the provided or default locale ('en')
-  this.locale(default_options['locale'] || 'en');
+  this.locale(defaultOptions['locale'] || 'en');
 }
