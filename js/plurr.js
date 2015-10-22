@@ -10,6 +10,9 @@ function addMissingOptions (opt, defaults) {
 }
 
 
+var _PLURAL = '_PLURAL';
+
+
 function Plurr(options) {
   //
   // Initialize object
@@ -181,8 +184,6 @@ function Plurr(options) {
   this.locale = function(locale) {
     this.plural = pluralEquations[locale];
   }; // function locale
-
-  var _PLURAL = '_PLURAL';
 
   this.format = function(s, params, options) {
     if (typeof(params) != 'object') {
