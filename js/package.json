@@ -1,0 +1,30 @@
+{
+  "name": "plurr",
+  "version": "1.0.0",
+  "description": "Library for handling plurals/genders/conditionals",
+  "main": "plurr.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iafan/Plurr.git"
+  },
+  "keywords": [
+    "i18n",
+    "internationalization",
+    "l10n",
+    "localization",
+    "plurals",
+    "genders"
+  ],
+  "author": "Igor Afanasyev",
+  "contributors": [
+    "Julen Ruiz Aizpuru <julenx@gmail.com> (https://github.com/julen)"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iafan/Plurr/issues"
+  },
+  "homepage": "https://github.com/iafan/Plurr#readme"
+}
