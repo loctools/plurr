@@ -28,9 +28,9 @@
 
     var defaultOptions = options || {};
     addMissingOptions(defaultOptions, {
-      'locale': 'en',
-      'autoPlurals': true,
-      'strict': true
+      locale: 'en',
+      autoPlurals: true,
+      strict: true
     });
 
     //
