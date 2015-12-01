@@ -312,7 +312,7 @@
         blocks[blocks.length - 1] += chunk;
       }
 
-      if (bracketCount > 0) {
+      if (strict && bracketCount > 0) {
         throw "Unmatched { found";
       }
 
