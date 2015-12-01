@@ -29,7 +29,7 @@
     var defaultOptions = options || {};
     addMissingOptions(defaultOptions, {
       'locale': 'en',
-      'auto_plurals': true,
+      'autoPlurals': true,
       'strict': true
     });
 
@@ -211,7 +211,7 @@
       addMissingOptions(options, defaultOptions);
 
       var strict = !!options.strict;
-      var autoPlurals = !!options.auto_plurals;
+      var autoPlurals = !!options.autoPlurals;
       var callback = options.callback;
 
       var chunks = s.split(/([\{\}])/);
