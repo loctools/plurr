@@ -203,12 +203,11 @@
       }
 
       options = options || {};
+      addMissingOptions(options, defaultOptions);
 
       var pluralFunc = options.locale != "" ?
         pluralEquations[options.locale] || pluralEquations['en'] :
         this.plural;
-
-      addMissingOptions(options, defaultOptions);
 
       var strict = !!options['strict'];
       var autoPlurals = !!options['auto_plurals'];
