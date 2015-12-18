@@ -11,7 +11,12 @@
         try {
           result = p.format(s, params, options);
         } catch (e) {
-          document.write(n, ': ', (e == exception ? 'pass' : 'fail: ['+e+'] vs ['+exception+']'), '<br/>');
+          document.write(n, ': ',
+            (e.type === exception.type && e.message === exception.message ?
+              'pass' :
+              'fail: ['+e.message+'] vs ['+exception.message+']'),
+            '<br/>'
+          );
           return;
         }
         if (exception != undefined) {
@@ -24,12 +29,18 @@
       var p = new Plurr();
       var s;
 
-      t('e.1', p, '', undefined, undefined, '', "'params' is not a hash");
-      t('e.2', p, 'err {', {}, undefined, '', "Unmatched { found");
-      t('e.3', p, 'err }', {}, undefined, '', "Unmatched } found");
-      t('e.4', p, '{foo}', {}, undefined, '', "'foo' not defined");
-      t('e.5', p, '{N_PLURAL}', {'N': 'NaN'}, undefined, '', "Value of 'N' is not a zero or positive integer number");
-      t('e.6', p, '{N_PLURAL}', {'N': 1.5}, undefined, '', "Value of 'N' is not a zero or positive integer number");
+      t('e.1', p, '', undefined, undefined, '',
+        new TypeError("'params' is not a hash"));
+      t('e.2', p, 'err {', {}, undefined, '',
+        new SyntaxError("Unmatched { found"));
+      t('e.3', p, 'err }', {}, undefined, '',
+        new SyntaxError("Unmatched } found"));
+      t('e.4', p, '{foo}', {}, undefined, '',
+        new TypeError("'foo' not defined"));
+      t('e.5', p, '{N_PLURAL}', {'N': 'NaN'}, undefined, '',
+        new RangeError("Value of 'N' is not a zero or positive integer number"));
+      t('e.6', p, '{N_PLURAL}', {'N': 1.5}, undefined, '',
+        new RangeError("Value of 'N' is not a zero or positive integer number"));
 
       s = 'Do you want to delete {N_PLURAL:this {N} file|these {N} files} permanently?';
 
