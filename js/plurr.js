@@ -188,7 +188,7 @@
 
     //
     // Choose the plural function based on locale name
-    // 
+    //
     this.locale = function(locale) {
       this.plural = pluralEquations[locale];
     }; // function locale
@@ -204,7 +204,7 @@
 
       options = options || {};
 
-      var pluralFunc = options.locale != "" ?
+      var pluralFunc = "locale" in options ?
         pluralEquations[options.locale] || pluralEquations.en :
         this.plural;
 
