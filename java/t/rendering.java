@@ -79,6 +79,9 @@ class RenderingTest {
     this.t("6.1", p, s, "1", "", "FOO", "1");
     this.t("6.2", p, s, "5.5", "", "FOO", "5.5");
     this.t("6.3", p, s, "bar", "", "FOO", "bar");
+
+    // tests 7.x are not applicable as Java implementation always uses .setLocale()
+    // and doesn't provide in-call locale option overrides
   }
 }
 
