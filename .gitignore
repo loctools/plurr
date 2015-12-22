@@ -2,3 +2,4 @@
 *.class
 *.pyc
 *.sw[op]
+npm-debug.log
