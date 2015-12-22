@@ -195,11 +195,11 @@
 
     this.format = function(s, params, options) {
       if (typeof params != 'object') {
-        throw "'params' is not a hash";
+        throw new TypeError("'params' is not a hash");
       }
 
       if ((typeof options != 'undefined') && (typeof options != 'object')) {
-        throw "'options' is not a hash";
+        throw new TypeError("'options' is not a hash");
       }
 
       options = options || {};
@@ -229,13 +229,13 @@
         if (chunk == '}') {
           bracketCount--;
           if (bracketCount < 0) {
-            throw "Unmatched } found";
+            throw new SyntaxError('Unmatched } found');
           }
           var block = blocks.pop();
           var colonPos = block.indexOf(':');
 
           if (strict && (colonPos == 0)) {
-            throw "Empty placeholder name";
+            throw new TypeError('Empty placeholder name');
           }
 
           var name;
@@ -251,13 +251,17 @@
             if (autoPlurals && (pPos != -1) && (pPos == (name.length - _PLURAL.length))) {
               var prefix = name.substr(0, pPos);
               if (strict && !(prefix in params)) {
-                throw "Neither '"+name+"' nor '"+prefix+"' are defined";
+                throw new TypeError(
+                  "Neither '" + name + "' nor '" + prefix + "' are defined"
+                );
               }
 
               var prefixValue = parseInt(params[prefix]);
               if (prefixValue != params[prefix] || (prefixValue < 0)) {
                 if (strict) {
-                  throw "Value of '"+prefix+"' is not a zero or positive integer number";
+                  throw new RangeError(
+                    "Value of '" + prefix + "' is not a zero or positive integer number"
+                  );
                 }
                 prefixValue = 0;
               }
@@ -267,7 +271,7 @@
               if (callback) {
                 params[name] = callback(name);
               } else if (strict) {
-                throw "'"+name+"' not defined";
+                throw new TypeError("'" + name + "' not defined");
               }
             }
           }
@@ -280,13 +284,15 @@
             var blockLen = block.length;
 
             if (strict && (colonPos == blockLen - 1)) {
-              throw "Empty list of variants";
+              throw new TypeError('Empty list of variants');
             }
 
             var choiceIdx = parseInt(params[name]);
             if (choiceIdx != params[name] || (choiceIdx < 0)) {
               if (strict) {
-                throw "Value of '"+name+"' is not a zero or positive integer number";
+                throw new RangeError(
+                  "Value of '" + name + "' is not a zero or positive integer number"
+                );
               }
               choiceIdx = 0;
             }
@@ -313,7 +319,7 @@
       }
 
       if (bracketCount > 0) {
-        throw "Unmatched { found";
+        throw new SyntaxError('Unmatched { found');
       }
 
       return blocks[0];
