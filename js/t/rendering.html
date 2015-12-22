@@ -12,9 +12,9 @@
           result = p.format(s, params, options);
         } catch (e) {
           document.write(n, ': ',
-            (e.type === exception.type && e.message === exception.message ?
+            (exception && e.type === exception.type && e.message === exception.message ?
               'pass' :
-              'fail: ['+e.message+'] vs ['+exception.message+']'),
+              'fail: ['+e.message+'] vs ['+(exception ? exception.message : '')+']'),
             '<br/>'
           );
           return;
