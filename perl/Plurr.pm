@@ -35,7 +35,7 @@ sub new {
   bless $self, $class;
 
   # initialize with the provided or default locale ('en')
-  $self->locale($options->{locale} || 'en');
+  $self->set_locale($options->{locale} || 'en');
 
   return $self;
 }
@@ -195,8 +195,8 @@ my $_plural_equations = {
 
 #
 # Choose the plural function based on locale name
-# 
-sub locale {
+#
+sub set_locale {
   my ($self, $locale) = @_;
   $self->{_plural} = $_plural_equations->{$locale};
 } # sub locale

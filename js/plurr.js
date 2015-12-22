@@ -189,7 +189,7 @@
     //
     // Choose the plural function based on locale name
     //
-    this.locale = function(locale) {
+    this.setLocale = function(locale) {
       this.plural = pluralEquations[locale];
     }; // function locale
 
@@ -326,7 +326,7 @@
     }; // function format
 
     // initialize with the provided or default locale ('en')
-    this.locale(defaultOptions.locale || 'en');
+    this.setLocale(defaultOptions.locale || 'en');
   }
 
   return Plurr;

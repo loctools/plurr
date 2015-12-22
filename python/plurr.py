@@ -178,7 +178,7 @@ class Plurr(object):
         self._default_options = options
 
         # initialize with the provided or default locale ('en')
-        self.locale(options.get('locale', 'en'))
+        self.set_locale(options.get('locale', 'en'))
 
     def add_missing_options(self, opt, defaults):
         """Merges two objects."""
@@ -186,7 +186,7 @@ class Plurr(object):
         o.update(opt)
         opt.update(o)
 
-    def locale(self, locale):
+    def set_locale(self, locale):
         """Choose the plural function based on locale name."""
         self._plural = self._plural_equations[locale]
         # TODO: raise error on missing locale

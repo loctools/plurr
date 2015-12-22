@@ -174,13 +174,13 @@ class Plurr {
     );
 
     // initialize with the provided or default locale ('en')
-    $this->locale(defined($this->options['locale']) ? $this->options['locale'] : 'en');
+    $this->set_locale(defined($this->options['locale']) ? $this->options['locale'] : 'en');
   } // function __construct
 
   //
   // Choose the plural function based on locale name
   //
-  public function locale($locale) {
+  public function set_locale($locale) {
     $this->plural = $this->plural_equations[$locale];
   } // function locale
 
