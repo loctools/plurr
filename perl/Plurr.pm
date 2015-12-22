@@ -215,7 +215,7 @@ sub format {
 
   $options = {} unless $options;
 
-  my $plural_func = $options->{locale} ?
+  my $plural_func = exists $options->{locale} ?
     $_plural_equations->{$options->{locale}} || $_plural_equations->{'en'} :
     $self->{_plural};
 
