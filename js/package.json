@@ -1,6 +1,6 @@
 {
   "name": "plurr",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Library for handling plurals/genders/conditionals",
   "main": "plurr.js",
   "scripts": {
