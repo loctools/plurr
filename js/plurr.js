@@ -28,9 +28,9 @@
 
     var defaultOptions = options || {};
     addMissingOptions(defaultOptions, {
-      'locale': 'en',
-      'auto_plurals': true,
-      'strict': true
+      locale: 'en',
+      autoPlurals: true,
+      strict: true
     });
 
     //
@@ -205,14 +205,14 @@
       options = options || {};
 
       var pluralFunc = options.locale != "" ?
-        pluralEquations[options.locale] || pluralEquations['en'] :
+        pluralEquations[options.locale] || pluralEquations.en :
         this.plural;
 
       addMissingOptions(options, defaultOptions);
 
-      var strict = !!options['strict'];
-      var autoPlurals = !!options['auto_plurals'];
-      var callback = options['callback'];
+      var strict = !!options.strict;
+      var autoPlurals = !!options.autoPlurals;
+      var callback = options.callback;
 
       var chunks = s.split(/([\{\}])/);
       var blocks = [''];
@@ -326,7 +326,7 @@
     }; // function format
 
     // initialize with the provided or default locale ('en')
-    this.locale(defaultOptions['locale'] || 'en');
+    this.locale(defaultOptions.locale || 'en');
   }
 
   return Plurr;

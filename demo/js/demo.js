@@ -50,7 +50,7 @@ function deserialize(query) {
 
   prevent_hash_update = true;
   $('#locale').val(options.locale);
-  $('#auto_plurals').attr('checked', !!options.auto_plurals);
+  $('#auto_plurals').attr('checked', !!options.autoPlurals);
   $('#strict').attr('checked', !!options.strict);
   editor.setValue(options.s ? options.s : '');
 
@@ -109,7 +109,7 @@ function _change(rebuild_params) {
     if (rebuild_params) {
       options = {
         'locale': $('#locale').val(),
-        'auto_plurals': !!$('#auto_plurals').attr('checked'),
+        'autoPlurals': !!$('#auto_plurals').attr('checked'),
         'strict': false,
         'callback': cb,
       };
@@ -133,7 +133,7 @@ function _change(rebuild_params) {
 
     options = {
       'locale': $('#locale').val(),
-      'auto_plurals': !!$('#auto_plurals').attr('checked'),
+      'autoPlurals': !!$('#auto_plurals').attr('checked'),
       'strict': !!$('#strict').attr('checked'),
     };
 
