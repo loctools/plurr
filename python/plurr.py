@@ -256,7 +256,7 @@ class Plurr(object):
                             if (str(params[prefix]) != str(prefix_value) or
                                 prefix_value < 0):
                                 raise ValueError()
-                        except ValueError:
+                        except (ValueError, KeyError):
                             if strict:
                                 raise ValueError(
                                     "Value of '{0}' is not a zero or positive "
