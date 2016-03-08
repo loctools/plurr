@@ -196,10 +196,10 @@ class Plurr(object):
             options = {}
 
         if not isinstance(params, dict):
-            raise TypeError("'params' is not a dict")
+            raise TypeError(u"'params' is not a dict")
 
         if not isinstance(options, dict):
-            raise TypeError("'options' is not a dict")
+            raise TypeError(u"'options' is not a dict")
 
         try:
             plural_func = self._plural_equations.get(options['locale'], 'en')
@@ -225,7 +225,7 @@ class Plurr(object):
             if chunk == '}':
                 bracket_count -= 1
                 if bracket_count < 0:
-                    raise SyntaxError("Unmatched } found")
+                    raise SyntaxError(u"Unmatched } found")
 
                 block = blocks.pop()
                 colon_pos = block.find(':')
@@ -233,7 +233,7 @@ class Plurr(object):
                 name = ''
 
                 if strict and colon_pos == 0:
-                    raise SyntaxError("Empty placeholder name")
+                    raise SyntaxError(u"Empty placeholder name")
 
                 if colon_pos == -1:  # simple placeholder
                     name = block
@@ -247,7 +247,7 @@ class Plurr(object):
                         prefix = name[0:p_pos]
                         if strict and prefix not in params:
                             raise LookupError(
-                                "Neither '{0}' nor '{1}' are defined".format(name, prefix)
+                                u"Neither '{0}' nor '{1}' are defined".format(name, prefix)
                             )
 
                         prefix_value = 0
@@ -259,8 +259,8 @@ class Plurr(object):
                         except (ValueError, KeyError):
                             if strict:
                                 raise ValueError(
-                                    "Value of '{0}' is not a zero or positive "
-                                    "integer number".format(prefix)
+                                    u"Value of '{0}' is not a zero or positive "
+                                    u"integer number".format(prefix)
                                 )
 
                         params[name] = plural_func(prefix_value)
@@ -268,7 +268,7 @@ class Plurr(object):
                         if callback:
                             params[name] = callback(name)
                         elif strict:
-                            raise LookupError("'{0}' not defined".format(name))
+                            raise LookupError(u"'{0}' not defined".format(name))
 
                 result = ''
 
@@ -278,7 +278,7 @@ class Plurr(object):
                     block_len = len(block)
 
                     if strict and colon_pos == block_len - 1:
-                        raise SyntaxError('Empty list of variants')
+                        raise SyntaxError(u"Empty list of variants")
 
                     choice_idx = 0
                     try:
@@ -288,8 +288,8 @@ class Plurr(object):
                     except ValueError:
                         if strict:
                             raise ValueError(
-                                "Value of '{0}' is not a zero or positive "
-                                "integer number".format(name)
+                                u"Value of '{0}' is not a zero or positive "
+                                u"integer number".format(name)
                             )
 
                     n = 0
@@ -313,6 +313,6 @@ class Plurr(object):
             blocks[len(blocks)-1] += chunk
 
         if bracket_count > 0:
-            raise SyntaxError("Unmatched { found")
+            raise SyntaxError(u"Unmatched { found")
 
         return blocks[0]
