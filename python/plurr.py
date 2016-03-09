@@ -253,7 +253,7 @@ class Plurr(object):
                         prefix_value = 0
                         try:
                             prefix_value = int(params[prefix])
-                            if (str(params[prefix]) != str(prefix_value) or
+                            if (unicode(params[prefix]) != unicode(prefix_value) or
                                 prefix_value < 0):
                                 raise ValueError()
                         except (ValueError, KeyError):
@@ -283,7 +283,8 @@ class Plurr(object):
                     choice_idx = 0
                     try:
                         choice_idx = int(params[name])
-                        if str(choice_idx) != str(params[name]) or choice_idx < 0:
+                        if (unicode(choice_idx) != unicode(params[name]) or
+                            choice_idx < 0):
                             raise ValueError()
                     except ValueError:
                         if strict:
@@ -308,7 +309,7 @@ class Plurr(object):
                             choice_end = j
                     result = block[choice_start:choice_end]
 
-                blocks[len(blocks)-1] += str(result)
+                blocks[len(blocks)-1] += unicode(result)
                 continue
             blocks[len(blocks)-1] += chunk
 
