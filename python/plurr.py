@@ -201,10 +201,12 @@ class Plurr(object):
         if not isinstance(options, dict):
             raise TypeError(u"'options' is not a dict")
 
-        try:
-            plural_func = self._plural_equations.get(options['locale'], 'en')
-        except KeyError:
-            plural_func = self._plural
+        plural_func = self._plural
+        if 'locale' in options:
+            try:
+                plural_func = self._plural_equations[options['locale']]
+            except KeyError:
+                plural_func = self._plural_equations['en']
 
         self.add_missing_options(options, self._default_options)
 

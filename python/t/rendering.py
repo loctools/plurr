@@ -77,3 +77,10 @@ t('7.2', p, s, {'N': 5}, {'locale': 'en'}, u'Удалить эти 5 файла 
 t('7.3', p, s, {'N': 5}, None, u'Удалить эти 5 файлов навсегда?')
 p.set_locale('en');
 t('7.4', p, s, {'N': 5}, None, u'Удалить эти 5 файла навсегда?')
+
+# Test for locale overrides and fallback
+s = 'Test {N_PLURAL:Foo|Bar {N}}'
+p = Plurr({'locale': 'ru'})
+p._plural_equations['foo-bar'] = lambda n: 1 if (n != 2) else 0
+t('8.1', p, s, {'N': 2}, {'locale': 'foo-bar'}, 'Test Foo')
+t('8.2', p, s, {'N': 2}, {'locale': 'foo_BAR'}, 'Test Bar 2')
