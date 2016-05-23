@@ -1,32 +1,36 @@
 About Plurr
 ===========
 
-Handling plurals is not a particularly easy task for programmers, especially if
-they are not familiar with anything except their mother tongue. Existing
-approaches are either platform-specific (like gettext/po), or have limitations
-(for example you can't have multiple plurals in one string), or not particularly
-translator-friendly, like Java's MessageFormat/ChoiceFormat.
+Handling plurals, genders and conditionals in strings is not a particularly
+favorite task for programmers for many reasons. There's no common agreement
+on how to handle such variants, so all existing approaches are either
+platform-specific (like gettext/po), or have limitations (for example you
+can't have multiple plurals in one string), or not particularly translator-
+friendly, like Java's MessageFormat/ChoiceFormat.
 
-**Plurr is a universal format specification** designed to be easy to support for
+**Plurr is a universal format specification for handling plurals, genders,
+conditionals and placeholders** designed to be easy to support for
 developers and understandable for translators yet robust to support different
-language requirements.
+language requirements. Plurr formatters are implemented in:
+**Go, Java, JavaScript, Perl, PHP, and Python**. Feel free to contribute
+to this project and provide support for your favorite languages.
 
 [Try live demo &rarr;](http://iafan.github.io/plurr-demo/)
 ===============
 
-Currently Plurr is implemented in:
+Advantages
+----------
 
-  * Java
-  * JavaScript
-  * Perl
-  * PHP
-  * Python
-
-Also there's a Plurr [syntax highlighter](https://github.com/iafan/Plurr/tree/master/demo/js/codemirror/mode/plurr) available for [CodeMirror](http://codemirror.net/),
-which is also a part of the live demo.
-
-Feel free to contribute to this project and provide implementations for your
-favorite languages.
+ 1. You can use Plurr with any L10N library of your choice: you can store and
+    read Plurr-formatted messages the same way as you do for any other strings.
+ 2. Same string format across multiple languages means that strings can be
+    reused more effectively. This all reduces the time and cost of translation.
+ 3. Named placeholders provide a great context for translators, and this means
+    better translation quality.
+ 4. Named placeholders allow to change their order in the final string if this
+    is more appropriate for a particular target language.
+ 5. Less programmatic string concatenation also helps understand the message as
+    a whole.
 
 ### Syntax Example
 
@@ -44,7 +48,7 @@ provided to the formatting function, Plurr will try to do
 `FOO_PLURAL = plurals(FOO)` internally, taking into consideration the current
 locale defined for the Plurr object. Below is a sample JavaScript code:
 
-    var p = new Plurr();  // create a Plurr object (once). Default locale is 'en' (English)
+    var p = new Plurr();  // create a Plurr object (once). Default locale is English
     ...
     alert(p.format(
       "Do you want to delete {N_PLURAL:this {N} file|these {N} files} permanently?",  // message
@@ -53,27 +57,7 @@ locale defined for the Plurr object. Below is a sample JavaScript code:
 
 The syntax itself is not something new, it is similar to the one used in the
 already mentioned Java's MessageFormat, but it is minimalistic and contains no
-sensitive words that translators can inadvertently change and thus break the
-whole thing.
-
-Plurr is not about handling plurals: you can use it with your otherwise
-English-only application to provide better messaging in difference scenarios:
-one vs many, handling genders, using variable parts of the message depending
-on the context, etc.
-
-Advantages
-----------
-
- 1. You can use Plurr with any L10N library of your choice: you can store and
-    read Plurr-formatted messages the same way as you do for any other strings.
- 2. Same string format across multiple languages means that strings can be
-    reused more effectively. This all reduces the time and cost of translation.
- 3. Named placeholders provide a great context for translators, and this means
-    better translation quality.
- 4. Named placeholders allow to change their order in the final string if this
-    is more appropriate for a particular target language.
- 5. Less programmatic string concatenation also helps understand the message as
-    a whole.
+sensitive words that translators can inadvertently change (and break).
 
 Format specification
 --------------------
@@ -204,3 +188,9 @@ certain condition (the number of files is zero):
 Such an approach allows translators to provide most natural translation
 possible, and gives some peace of mind to developers helping them reduce the
 amount of supporting `if...else` code in their applications.
+
+Syntax Highlighting
+-------------------
+
+Plurr also has a [syntax highlighter](https://github.com/iafan/Plurr/tree/master/demo/js/codemirror/mode/plurr)
+available for [CodeMirror](http://codemirror.net/), which is a part of the live demo.
