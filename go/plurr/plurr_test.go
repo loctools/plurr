@@ -2,11 +2,7 @@
 
 package plurr
 
-import (
-	"testing"
-
-	"github.com/iafan/Plurr/go/plurr"
-)
+import "testing"
 
 const S1 = "Do you want to delete {N_PLURAL:this {N} file|these {N} files} permanently?"
 const S2 = "Do you want to drink {CHOICE:coffee|tea|juice}?"
@@ -17,9 +13,9 @@ const S6 = "{FOO}"
 const S7 = "Удалить {N_PLURAL:этот {N} файл|эти {N} файла|эти {N} файлов} навсегда?"
 
 func BenchmarkFormat(b *testing.B) {
-	p := plurr.New()
+	p := New()
 	s := "Do you want to delete {N_PLURAL:this {N} file|these {N} files} permanently?"
-	params := plurr.Params{"N": 5}
+	params := Params{"N": 5}
 
 	for i := 0; i < b.N; i++ {
 		_, _ = p.Format(s, params)
@@ -27,14 +23,14 @@ func BenchmarkFormat(b *testing.B) {
 }
 
 func BenchmarkSetLocale(b *testing.B) {
-	p := plurr.New()
+	p := New()
 	for i := 0; i < b.N; i++ {
 		p.SetLocale("ru")
 	}
 }
 
 func TestFormatE2(t *testing.T) {
-	p := plurr.New()
+	p := New()
 	_, err := p.Format("err {", nil)
 
 	if err.Error() != "Unmatched { found" {
@@ -43,7 +39,7 @@ func TestFormatE2(t *testing.T) {
 }
 
 func TestFormatE3(t *testing.T) {
-	p := plurr.New()
+	p := New()
 	_, err := p.Format("err }", nil)
 
 	if err.Error() != "Unmatched } found" {
@@ -52,7 +48,7 @@ func TestFormatE3(t *testing.T) {
 }
 
 func TestFormatE4(t *testing.T) {
-	p := plurr.New()
+	p := New()
 	_, err := p.Format("{foo}", nil)
 
 	if err.Error() != "'foo' not defined" {
@@ -61,8 +57,8 @@ func TestFormatE4(t *testing.T) {
 }
 
 func TestFormatE5(t *testing.T) {
-	p := plurr.New()
-	_, err := p.Format("{N_PLURAL}", plurr.Params{"N": "NaN"})
+	p := New()
+	_, err := p.Format("{N_PLURAL}", Params{"N": "NaN"})
 
 	if err.Error() != "Value of 'N' is not a zero or positive integer number" {
 		t.Fail()
@@ -70,8 +66,8 @@ func TestFormatE5(t *testing.T) {
 }
 
 func TestFormatE6(t *testing.T) {
-	p := plurr.New()
-	_, err := p.Format("{N_PLURAL}", plurr.Params{"N": 1.5})
+	p := New()
+	_, err := p.Format("{N_PLURAL}", Params{"N": 1.5})
 
 	if err.Error() != "Value of 'N' is not a zero or positive integer number" {
 		t.Fail()
@@ -79,8 +75,8 @@ func TestFormatE6(t *testing.T) {
 }
 
 func TestFormat1_1(t *testing.T) {
-	p := plurr.New()
-	out, err := p.Format(S1, plurr.Params{"N": 1})
+	p := New()
+	out, err := p.Format(S1, Params{"N": 1})
 
 	if err != nil || out != "Do you want to delete this 1 file permanently?" {
 		t.Fail()
@@ -88,8 +84,8 @@ func TestFormat1_1(t *testing.T) {
 }
 
 func TestFormat1_2(t *testing.T) {
-	p := plurr.New()
-	out, err := p.Format(S1, plurr.Params{"N": 5})
+	p := New()
+	out, err := p.Format(S1, Params{"N": 5})
 
 	if err != nil || out != "Do you want to delete these 5 files permanently?" {
 		t.Fail()
@@ -97,8 +93,8 @@ func TestFormat1_2(t *testing.T) {
 }
 
 func TestFormat2_1(t *testing.T) {
-	p := plurr.New()
-	out, err := p.Format(S2, plurr.Params{"CHOICE": 0})
+	p := New()
+	out, err := p.Format(S2, Params{"CHOICE": 0})
 
 	if err != nil || out != "Do you want to drink coffee?" {
 		t.Fail()
@@ -106,8 +102,8 @@ func TestFormat2_1(t *testing.T) {
 }
 
 func TestFormat2_2(t *testing.T) {
-	p := plurr.New()
-	out, err := p.Format(S2, plurr.Params{"CHOICE": 1})
+	p := New()
+	out, err := p.Format(S2, Params{"CHOICE": 1})
 
 	if err != nil || out != "Do you want to drink tea?" {
 		t.Fail()
@@ -115,8 +111,8 @@ func TestFormat2_2(t *testing.T) {
 }
 
 func TestFormat2_3(t *testing.T) {
-	p := plurr.New()
-	out, err := p.Format(S2, plurr.Params{"CHOICE": 2})
+	p := New()
+	out, err := p.Format(S2, Params{"CHOICE": 2})
 
 	if err != nil || out != "Do you want to drink juice?" {
 		t.Fail()
@@ -124,8 +120,8 @@ func TestFormat2_3(t *testing.T) {
 }
 
 func TestFormat3_1(t *testing.T) {
-	p := plurr.New().SetLocale("ru")
-	out, err := p.Format(S3, plurr.Params{"N": 1})
+	p := New().SetLocale("ru")
+	out, err := p.Format(S3, Params{"N": 1})
 
 	if err != nil || out != "Удалить этот 1 файл навсегда?" {
 		t.Fail()
@@ -133,8 +129,8 @@ func TestFormat3_1(t *testing.T) {
 }
 
 func TestFormat3_2(t *testing.T) {
-	p := plurr.New().SetLocale("ru")
-	out, err := p.Format(S3, plurr.Params{"N": 2})
+	p := New().SetLocale("ru")
+	out, err := p.Format(S3, Params{"N": 2})
 
 	if err != nil || out != "Удалить эти 2 файла навсегда?" {
 		t.Fail()
@@ -142,8 +138,8 @@ func TestFormat3_2(t *testing.T) {
 }
 
 func TestFormat3_3(t *testing.T) {
-	p := plurr.New().SetLocale("ru")
-	out, err := p.Format(S3, plurr.Params{"N": 5})
+	p := New().SetLocale("ru")
+	out, err := p.Format(S3, Params{"N": 5})
 
 	if err != nil || out != "Удалить эти 5 файлов навсегда?" {
 		t.Fail()
@@ -151,8 +147,8 @@ func TestFormat3_3(t *testing.T) {
 }
 
 func TestFormat3_4(t *testing.T) {
-	p := plurr.New() // keep English locale
-	out, err := p.Format(S3, plurr.Params{"N": 5})
+	p := New() // keep English locale
+	out, err := p.Format(S3, Params{"N": 5})
 
 	if err != nil || out != "Удалить эти 5 файла навсегда?" {
 		t.Fail()
@@ -160,8 +156,8 @@ func TestFormat3_4(t *testing.T) {
 }
 
 func TestFormat4_1(t *testing.T) {
-	p := plurr.New()
-	out, err := p.Format(S4, plurr.Params{"X": 0})
+	p := New()
+	out, err := p.Format(S4, Params{"X": 0})
 
 	if err != nil || out != "No files found." {
 		t.Fail()
@@ -169,8 +165,8 @@ func TestFormat4_1(t *testing.T) {
 }
 
 func TestFormat4_2(t *testing.T) {
-	p := plurr.New()
-	out, err := p.Format(S4, plurr.Params{"X": 1})
+	p := New()
+	out, err := p.Format(S4, Params{"X": 1})
 
 	if err != nil || out != "One file found." {
 		t.Fail()
@@ -178,8 +174,8 @@ func TestFormat4_2(t *testing.T) {
 }
 
 func TestFormat4_3(t *testing.T) {
-	p := plurr.New()
-	out, err := p.Format(S4, plurr.Params{"X": 2})
+	p := New()
+	out, err := p.Format(S4, Params{"X": 2})
 
 	if err != nil || out != "2 files found." {
 		t.Fail()
@@ -187,8 +183,8 @@ func TestFormat4_3(t *testing.T) {
 }
 
 func TestFormat4_4(t *testing.T) {
-	p := plurr.New()
-	out, err := p.Format(S4, plurr.Params{"X": "0"})
+	p := New()
+	out, err := p.Format(S4, Params{"X": "0"})
 
 	if err != nil || out != "No files found." {
 		t.Fail()
@@ -196,8 +192,8 @@ func TestFormat4_4(t *testing.T) {
 }
 
 func TestFormat4_5(t *testing.T) {
-	p := plurr.New()
-	out, err := p.Format(S4, plurr.Params{"X": "1"})
+	p := New()
+	out, err := p.Format(S4, Params{"X": "1"})
 
 	if err != nil || out != "One file found." {
 		t.Fail()
@@ -205,8 +201,8 @@ func TestFormat4_5(t *testing.T) {
 }
 
 func TestFormat4_6(t *testing.T) {
-	p := plurr.New()
-	out, err := p.Format(S4, plurr.Params{"X": "2"})
+	p := New()
+	out, err := p.Format(S4, Params{"X": "2"})
 
 	if err != nil || out != "2 files found." {
 		t.Fail()
@@ -214,8 +210,8 @@ func TestFormat4_6(t *testing.T) {
 }
 
 func TestFormat5_1(t *testing.T) {
-	p := plurr.New().SetLocale("ru")
-	out, err := p.Format(S5, plurr.Params{"X": 0})
+	p := New().SetLocale("ru")
+	out, err := p.Format(S5, Params{"X": 0})
 
 	if err != nil || out != "Не найдено файлов." {
 		t.Fail()
@@ -223,8 +219,8 @@ func TestFormat5_1(t *testing.T) {
 }
 
 func TestFormat5_2(t *testing.T) {
-	p := plurr.New().SetLocale("ru")
-	out, err := p.Format(S5, plurr.Params{"X": 1})
+	p := New().SetLocale("ru")
+	out, err := p.Format(S5, Params{"X": 1})
 
 	if err != nil || out != "Найден один файл." {
 		t.Fail()
@@ -232,8 +228,8 @@ func TestFormat5_2(t *testing.T) {
 }
 
 func TestFormat5_3(t *testing.T) {
-	p := plurr.New().SetLocale("ru")
-	out, err := p.Format(S5, plurr.Params{"X": 2})
+	p := New().SetLocale("ru")
+	out, err := p.Format(S5, Params{"X": 2})
 
 	if err != nil || out != "Найдены 2 файла." {
 		t.Fail()
@@ -241,8 +237,8 @@ func TestFormat5_3(t *testing.T) {
 }
 
 func TestFormat5_4(t *testing.T) {
-	p := plurr.New().SetLocale("ru")
-	out, err := p.Format(S5, plurr.Params{"X": 5})
+	p := New().SetLocale("ru")
+	out, err := p.Format(S5, Params{"X": 5})
 
 	if err != nil || out != "Найдено 5 файлов." {
 		t.Fail()
@@ -250,8 +246,8 @@ func TestFormat5_4(t *testing.T) {
 }
 
 func TestFormat6_1(t *testing.T) {
-	p := plurr.New()
-	out, err := p.Format(S6, plurr.Params{"FOO": 1})
+	p := New()
+	out, err := p.Format(S6, Params{"FOO": 1})
 
 	if err != nil || out != "1" {
 		t.Fail()
@@ -259,8 +255,8 @@ func TestFormat6_1(t *testing.T) {
 }
 
 func TestFormat6_2(t *testing.T) {
-	p := plurr.New()
-	out, err := p.Format(S6, plurr.Params{"FOO": 5.5})
+	p := New()
+	out, err := p.Format(S6, Params{"FOO": 5.5})
 
 	if err != nil || out != "5.5" {
 		t.Fail()
@@ -268,8 +264,8 @@ func TestFormat6_2(t *testing.T) {
 }
 
 func TestFormat6_3(t *testing.T) {
-	p := plurr.New()
-	out, err := p.Format(S6, plurr.Params{"FOO": "bar"})
+	p := New()
+	out, err := p.Format(S6, Params{"FOO": "bar"})
 
 	if err != nil || out != "bar" {
 		t.Fail()
@@ -277,27 +273,27 @@ func TestFormat6_3(t *testing.T) {
 }
 
 func TestFormat7_1__7_4(t *testing.T) {
-	p := plurr.New()
+	p := New()
 	// 7.1
-	out, err := p.SetLocale("ru").Format(S7, plurr.Params{"N": 5})
+	out, err := p.SetLocale("ru").Format(S7, Params{"N": 5})
 
 	if err != nil || out != "Удалить эти 5 файлов навсегда?" {
 		t.Fail()
 	}
 	// 7.2
-	out, err = p.SetLocale("en").Format(S7, plurr.Params{"N": 5})
+	out, err = p.SetLocale("en").Format(S7, Params{"N": 5})
 
 	if err != nil || out != "Удалить эти 5 файла навсегда?" {
 		t.Fail()
 	}
 	// 7.3
-	out, err = p.SetLocale("ru").Format(S7, plurr.Params{"N": 5})
+	out, err = p.SetLocale("ru").Format(S7, Params{"N": 5})
 
 	if err != nil || out != "Удалить эти 5 файлов навсегда?" {
 		t.Fail()
 	}
 	// 7.4
-	out, err = p.SetLocale("en").Format(S7, plurr.Params{"N": 5})
+	out, err = p.SetLocale("en").Format(S7, Params{"N": 5})
 
 	if err != nil || out != "Удалить эти 5 файла навсегда?" {
 		t.Fail()
