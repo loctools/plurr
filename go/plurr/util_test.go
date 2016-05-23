@@ -1,0 +1,15 @@
+// Copyright (C) 2016 Igor Afanasyev, https://github.com/iafan/Plurr
+
+package plurr
+
+import (
+	"fmt"
+	"testing"
+)
+
+func TestSplitString(t *testing.T) {
+	s := fmt.Sprintf("%#v", SplitString("foo{X}bar{BAZ:a|b|{X}}", "{}"))
+	if s != `[]string{"foo", "{", "X", "}", "bar", "{", "BAZ:a|b|", "{", "X", "}", "}"}` {
+		t.Fail()
+	}
+}
