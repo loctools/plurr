@@ -3,12 +3,12 @@
 include_once('../Plurr.php');
 
 $p = new Plurr();
-$x = 100000;
+$x = 1000000;
 
 $start = microtime(true);
 
 for ($i = 0; $i < $x; $i++) {
-  $dummy = $p->locale('ru');
+  $dummy = $p->set_locale('ru');
 }
 
 $end = microtime(true);

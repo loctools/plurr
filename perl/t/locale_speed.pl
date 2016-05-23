@@ -13,12 +13,12 @@ use Time::HiRes qw(gettimeofday tv_interval);
 use Plurr;
 
 my $p = Plurr->new();
-my $x = 100000;
+my $x = 1000000;
 
 my $start = [gettimeofday];
 
 for (my $i = 0; $i < $x; $i++) {
-  my $dummy = $p->locale('ru');
+  my $dummy = $p->set_locale('ru');
 }
 
 my $end = [gettimeofday];

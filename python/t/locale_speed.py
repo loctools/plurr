@@ -10,7 +10,7 @@ from plurr import Plurr
 
 
 p = Plurr()
-x = 100000
+x = 1000000
 
 start = time.clock()
 
