@@ -6,7 +6,7 @@ Usage
 
 ```JavaScript
 
-var p = new Plurr(); // "en" (English) is a default locale and can be ommitted
+var p = new Plurr(); // English locale is set by default
 var s, out;
 
 s = "{N_PLURAL:{N} file|{N} files}";
