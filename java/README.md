@@ -5,7 +5,7 @@ Usage
 -----
 
 ```Java
-Plurr p = new Plurr("en"); // "en" (English) is a default locale and can be ommitted
+Plurr p = new Plurr("en"); // "en" (English) is a default locale and can be omitted
 String out;
 
 String s = "{N_PLURAL:{N} file|{N} files}";
