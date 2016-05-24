@@ -181,7 +181,7 @@ do is to construct a message like this:
 
 ```elm
 Do you want to leave {GENDER:him|her|them} a message?
-{GENDER:He|She|They} will see it when {GENDER:logs|logs|log} in.
+{GENDER:He|She|They} will see it when {GENDER:he|she|they} {GENDER:logs|logs|log} in.
 ```
 
 ### 5. Nested placeholders
