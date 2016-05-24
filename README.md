@@ -139,7 +139,7 @@ will render as:
 #### Example of the same string translated into Russian:
 
 ```elm
-N_PLURAL:{N} файл|{N} файла|{N} файлов}
+{N_PLURAL:{N} файл|{N} файла|{N} файлов}
 ```
 
 will render as:
