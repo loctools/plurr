@@ -34,7 +34,9 @@ Advantages
 
 ### Syntax Example
 
-    Do you want to delete {N_PLURAL:this {N} file|these {N} files} permanently?
+```elm
+Do you want to delete {N_PLURAL:this {N} file|these {N} files} permanently?
+```
 
 Which, depending on the provided `N` value, will render as (for English):
 
