@@ -48,12 +48,14 @@ provided to the formatting function, Plurr will try to do
 `FOO_PLURAL = plurals(FOO)` internally, taking into consideration the current
 locale defined for the Plurr object. Below is a sample JavaScript code:
 
-    var p = new Plurr();  // create a Plurr object (once). Default locale is English
-    ...
-    alert(p.format(
-      "Do you want to delete {N_PLURAL:this {N} file|these {N} files} permanently?",  // message
-      {'N': 5}  // parameters
-    ));
+```javascript
+var p = new Plurr();  // create a Plurr object (once). Default locale is English
+...
+alert(p.format(
+  "Do you want to delete {N_PLURAL:this {N} file|these {N} files} permanently?",  // message
+  {'N': 5}  // parameters
+));
+```
 
 The syntax itself is not something new, it is similar to the one used in the
 already mentioned Java's MessageFormat, but it is minimalistic and contains no
@@ -66,11 +68,15 @@ Format specification
 
 #### Format
 
-    {NAME}
+```elm
+{NAME}
+```
 
 #### Example
 
-    {FOO} and {BAR}
+```elm
+{FOO} and {BAR}
+```
 
 Here `{FOO}` will be substituted with the provided FOO value, and `{BAR}` —
 with the value of BAR.
@@ -87,17 +93,21 @@ contain `}` or `:` symbol.
 When you need to represent symbols `{` or `}` themselves in the final string,
 replace them with named placeholders with corresponding values, for example:
 
-    alert(p.format(
-      "I love {<}curly{>} braces.",
-      {
-        '<': '{',
-        '>': '}'
-      }
-    ));
+```javascript
+alert(p.format(
+  "I love {<}curly{>} braces.",
+  {
+    '<': '{',
+    '>': '}'
+  }
+));
+```
 
 ### 2. Placeholders with alternatives
 
-    {CHOICE:FORM0[|FORM1][|FORM2][|FORM3][|...]}
+```elm
+{CHOICE:FORM0[|FORM1][|FORM2][|FORM3][|...]}
+```
 
 where:
 
@@ -113,7 +123,9 @@ corresponding value (same as for `{` and `}` in the section above).
 
 #### Example in English:
 
-    {N_PLURAL:{N} file|{N} files}
+```elm
+{N_PLURAL:{N} file|{N} files}
+```
 
 will render as:
 
@@ -124,7 +136,9 @@ will render as:
 
 #### Example of the same string translated into Russian:
 
-    {N_PLURAL:{N} файл|{N} файла|{N} файлов}
+```elm
+N_PLURAL:{N} файл|{N} файла|{N} файлов}
+```
 
 will render as:
 
@@ -139,16 +153,20 @@ Inside a string, there can be multiple placeholders of any kind.
 
 #### Example:
 
-    {X_PLURAL:{X} file|{X} files} found in {Y_PLURAL:{Y} folder|{Y} folders}.
-    Do you want to {COMMAND:copy|move|delete} {X:them|it|them}?
+```elm
+{X_PLURAL:{X} file|{X} files} found in {Y_PLURAL:{Y} folder|{Y} folders}.
+Do you want to {COMMAND:copy|move|delete} {X:them|it|them}?
+```
 
 Here, in addition to handling plurals, we use a value of `COMMAND` placeholder
 to display different verbs.
 
 #### Same example in Russian:
 
-    В {Y_PLURAL:{Y} папке|{Y} папках|{Y} папках} {X_PLURAL:найден {X} файл|найдены {X} файла|найдено {X} файлов}.
-    Хотите {X:его|их} {COMMAND:скопировать|переместить|удалить}?
+```elm
+В {Y_PLURAL:{Y} папке|{Y} папках|{Y} папках} {X_PLURAL:найден {X} файл|найдены {X} файла|найдено {X} файлов}.
+Хотите {X:его|их} {COMMAND:скопировать|переместить|удалить}?
+```
 
 ### 4. Handling genders
 
@@ -159,8 +177,10 @@ way you number genders is purely arbitrary, but we recommend sticking to some
 scheme that you use consistently across your application). Then all you need to
 do is to construct a message like this:
 
-    Do you want to leave {GENDER:him|her|them} a message?
-    {GENDER:He|She|They} will see it when {GENDER:logs|logs|log} in.
+```elm
+Do you want to leave {GENDER:him|her|them} a message?
+{GENDER:He|She|They} will see it when {GENDER:logs|logs|log} in.
+```
 
 ### 5. Nested placeholders
 
@@ -168,7 +188,9 @@ Sometimes one would like to say "One file" instead of "1 file", and "No files"
 instead of "0 files". That's (and other scenarios) are possible with nested
 placeholders:
 
-    {X_PLURAL:{X:|One|{X}} file|{X:No|{X}} files} found.
+```elm
+{X_PLURAL:{X:|One|{X}} file|{X:No|{X}} files} found.
+```
 
 Here the `{X} file` part of the outer macro is replaced so that
 when X is equal to 1, the word "one" is displayed instead.
@@ -176,14 +198,18 @@ In other cases, the number (X) is displayed.
 
 #### Same example in Russian:
 
-    {X_PLURAL:Найден {X:|один|{X}} файл|Найдены {X} файла|{X:Не найдено|Найдено {X}} файлов}.
+```elm
+{X_PLURAL:Найден {X:|один|{X}} файл|Найдены {X} файла|{X:Не найдено|Найдено {X}} файлов}.
+```
 
 ### 6. Handling special cases
 
 Another common scenario is to display a completely different message for a
 certain condition (the number of files is zero):
 
-    {X:Sorry, but no files were found. Please try again.|{X_PLURAL:{X} file|{X} files} found.}
+```elm
+{X:Sorry, but no files were found. Please try again.|{X_PLURAL:{X} file|{X} files} found.}
+```
 
 Such an approach allows translators to provide most natural translation
 possible, and gives some peace of mind to developers helping them reduce the
