@@ -83,7 +83,7 @@ func (p *Plurr) SetCallback(value CallbackFunc) *Plurr {
 // Format renders the string based on the template
 // and a list (map) of parameters
 func (p *Plurr) Format(s string, params Params) (string, error) {
-	chunks := SplitString(s, "{}")
+	chunks := SplitString(s, '{', '}')
 	blocks := []string{""}
 	bracketCount := 0
 

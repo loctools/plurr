@@ -2,17 +2,15 @@
 
 package plurr
 
-import "strings"
-
 // SplitString splits the string by the set of individual characters
 // in `delimiters` string and returns an array of strings
 // including the delimiters
-func SplitString(s string, delimiters string) []string {
+func SplitString(s string, start, end rune) []string {
 	var out []string
 	delim := false
 	accum := ""
 	for _, char := range s {
-		if i := strings.Index(delimiters, string(char)); i > -1 == delim {
+		if (char == start || char == end) == delim {
 			if delim {
 				if accum != "" {
 					out = append(out, accum)

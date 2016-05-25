@@ -8,8 +8,14 @@ import (
 )
 
 func TestSplitString(t *testing.T) {
-	s := fmt.Sprintf("%#v", SplitString("foo{X}bar{BAZ:a|b|{X}}", "{}"))
+	s := fmt.Sprintf("%#v", SplitString("foo{X}bar{BAZ:a|b|{X}}", '{', '}'))
 	if s != `[]string{"foo", "{", "X", "}", "bar", "{", "BAZ:a|b|", "{", "X", "}", "}"}` {
 		t.Fail()
+	}
+}
+
+func BenchmarkSplitString(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_ = SplitString("foo{X}bar{BAZ:a|b|{X}}", '{', '}')
 	}
 }
