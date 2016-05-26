@@ -183,7 +183,7 @@
       'wa': function(n) { return (n>1) ? 1 : 0; }, // Walloon
 
       'zh': function(n) { return 0; }, // Chinese
-      'zh-personal': function(n) { return (n>1) ? 1 : 0; }, // Chinese, used in special cases when dealing with personal pronoun
+      'zh-personal': function(n) { return (n>1) ? 1 : 0; } // Chinese, used in special cases when dealing with personal pronoun
     };
 
     //
