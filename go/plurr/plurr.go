@@ -50,7 +50,7 @@ func (p *Plurr) SetLocale(locale string) *Plurr {
 	p.pluralFunc = f
 
 	return p
-} // func locale
+}
 
 // SetAutoPlurals sets the 'auto-plurals' mode where the value of
 // 'X_PLURAL' placeholder is calculated automatically by taking
@@ -60,7 +60,7 @@ func (p *Plurr) SetLocale(locale string) *Plurr {
 func (p *Plurr) SetAutoPlurals(value bool) *Plurr {
 	p.autoPlurals = value
 	return p
-} // func locale
+}
 
 // SetStrict sets the 'strict' mode where missing placeholder values,
 // as well as non-uint values of placeholders about to be passed
@@ -70,7 +70,7 @@ func (p *Plurr) SetAutoPlurals(value bool) *Plurr {
 func (p *Plurr) SetStrict(value bool) *Plurr {
 	p.strict = value
 	return p
-} // func locale
+}
 
 // SetCallback sets the callback function to be called by 'plurr.Format'
 // to get placeholder values dynamically.
@@ -78,7 +78,7 @@ func (p *Plurr) SetStrict(value bool) *Plurr {
 func (p *Plurr) SetCallback(value CallbackFunc) *Plurr {
 	p.callback = value
 	return p
-} // func locale
+}
 
 // Format renders the string based on the template
 // and a list (map) of parameters
