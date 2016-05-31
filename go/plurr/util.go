@@ -2,9 +2,8 @@
 
 package plurr
 
-// SplitString splits the string by the set of individual characters
-// in `delimiters` string and returns an array of strings
-// including the delimiters
+// SplitString splits the `s` string by `start` and `end` delimiter
+// runes and returns an array of strings including the delimiters
 func SplitString(s string, start, end rune) []string {
 	var out []string
 	delim := false
