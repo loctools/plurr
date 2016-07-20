@@ -184,33 +184,23 @@ Do you want to leave {GENDER:him|her|them} a message?
 {GENDER:He|She|They} will see it when {GENDER:he|she|they} {GENDER:logs|logs|log} in.
 ```
 
-### 5. Nested placeholders
+### 5. Nested placeholders and special cases
 
 Sometimes one would like to say "One file" instead of "1 file", and "No files"
 instead of "0 files". That's (and other scenarios) are possible with nested
 placeholders:
 
 ```elm
-{X_PLURAL:{X:|One|{X}} file|{X:No|{X}} files} found.
+{X:No files|One file|{X} {X_PLURAL:file|files}} found.
 ```
 
-Here the `{X} file` part of the outer macro is replaced so that
-when X is equal to 1, the word "one" is displayed instead.
-In other cases, the number (X) is displayed.
+Here we first make a choice based on the value of `X`, where for values `0` and `1` we render
+special messages, and for values `2` and above we render the nested plural-aware placeholder.
 
 #### Same example in Russian:
 
 ```elm
-{X_PLURAL:Найден {X:|один|{X}} файл|Найдены {X} файла|{X:Не найдено|Найдено {X}} файлов}.
-```
-
-### 6. Handling special cases
-
-Another common scenario is to display a completely different message for a
-certain condition (the number of files is zero):
-
-```elm
-{X:Sorry, but no files were found. Please try again.|{X_PLURAL:{X} file|{X} files} found.}
+{X:Не найдено файлов|Найден один файл|{X_PLURAL:Найден {X} файл|Найдено {X} файла|Найдено {X} файлов|}}.
 ```
 
 Such an approach allows translators to provide most natural translation
