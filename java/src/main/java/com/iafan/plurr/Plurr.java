@@ -223,7 +223,7 @@ public class Plurr {
 
   public int plural (int n) throws PlurrInternalException {
     try {
-      return (int)this.pluralMethod.invoke(this, n);
+      return (Integer) this.pluralMethod.invoke(this, n);
     } catch (IllegalAccessException e) {
       throw new PlurrInternalException("IllegalAccessException: " + e.getMessage());
     } catch (InvocationTargetException e) {
