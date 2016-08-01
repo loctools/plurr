@@ -83,4 +83,9 @@ public class RenderingTest {
     // tests 7.x are not applicable as Java implementation always uses .setLocale()
     // and doesn't provide in-call locale option overrides
   }
+
+  public static void main(String[] args) throws Exception {
+    RenderingTest renderingTest = new RenderingTest();
+    renderingTest.testRendering();
+  }
 }
