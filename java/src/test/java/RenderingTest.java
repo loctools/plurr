@@ -1,6 +1,6 @@
 import com.iafan.plurr.*;
 
-class RenderingTest {
+public class RenderingTest {
 
   private void pass_or_fail(String n, String reference, String result) {
     System.out.printf("%s: ", n);
@@ -24,7 +24,7 @@ class RenderingTest {
     }
   }
 
-  public void run() throws PlurrLocaleNotFoundException {
+  public void testRendering() throws PlurrLocaleNotFoundException {
     Plurr p = new Plurr();
     String s;
 
@@ -83,11 +83,9 @@ class RenderingTest {
     // tests 7.x are not applicable as Java implementation always uses .setLocale()
     // and doesn't provide in-call locale option overrides
   }
-}
 
-class rendering {
-  public static void main(String[] args) throws PlurrLocaleNotFoundException {
-    RenderingTest test = new RenderingTest();
-    test.run();
+  public static void main(String[] args) throws Exception {
+    RenderingTest renderingTest = new RenderingTest();
+    renderingTest.testRendering();
   }
 }

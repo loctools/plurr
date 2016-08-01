@@ -1,7 +1,7 @@
 import com.iafan.plurr.*;
 
-class format_speed {
-  public static void main(String[] args) throws PlurrInternalException, PlurrSyntaxException, PlurrLocaleNotFoundException {
+public class FormatSpeedTest {
+  public void testFormatSpeed() throws PlurrInternalException, PlurrSyntaxException, PlurrLocaleNotFoundException {
     Plurr p = new Plurr();
     String s = "Do you want to delete {N_PLURAL:this {N} file|these {N} files} permanently?";
     int x = 1000000;
@@ -16,5 +16,10 @@ class format_speed {
     long end = System.nanoTime();
     double time = new Long((end - start) / 1000000).doubleValue();
     System.out.printf("Execution time (%d calls): %f sec (%f ms per call)", x, time / 1000, time / x);
+  }
+
+  public static void main(String[] args) throws Exception {
+    FormatSpeedTest formatSpeedTest = new FormatSpeedTest();
+    formatSpeedTest.testFormatSpeed();
   }
 }

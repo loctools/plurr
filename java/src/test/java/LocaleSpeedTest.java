@@ -1,7 +1,7 @@
 import com.iafan.plurr.*;
 
-class locale_speed {
-  public static void main(String[] args) throws PlurrLocaleNotFoundException {
+public class LocaleSpeedTest {
+  public void testLocaleSpeed() throws PlurrLocaleNotFoundException {
     Plurr p = new Plurr();
     int x = 1000000;
 
@@ -14,5 +14,10 @@ class locale_speed {
     long end = System.nanoTime();
     double time = new Long((end - start) / 1000000).doubleValue();
     System.out.printf("Execution time (%d calls): %f sec (%f ms per call)", x, time / 1000, time / x);
+  }
+
+  public static void main(String[] args) throws Exception {
+    LocaleSpeedTest localeSpeedTest = new LocaleSpeedTest();
+    localeSpeedTest.testLocaleSpeed();
   }
 }
