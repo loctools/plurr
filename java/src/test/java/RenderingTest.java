@@ -1,7 +1,5 @@
 import com.iafan.plurr.*;
 
-import org.junit.Test;
-
 public class RenderingTest {
 
   private void pass_or_fail(String n, String reference, String result) {
@@ -26,7 +24,6 @@ public class RenderingTest {
     }
   }
 
-  @Test
   public void testRendering() throws PlurrLocaleNotFoundException {
     Plurr p = new Plurr();
     String s;

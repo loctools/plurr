@@ -1,9 +1,6 @@
 import com.iafan.plurr.*;
 
-import org.junit.Test;
-
 public class LocaleSpeedTest {
-  @Test
   public void testLocaleSpeed() throws PlurrLocaleNotFoundException {
     Plurr p = new Plurr();
     int x = 1000000;
