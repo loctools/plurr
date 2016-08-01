@@ -1,7 +1,10 @@
 import com.iafan.plurr.*;
 
-class format_speed {
-  public static void main(String[] args) throws PlurrInternalException, PlurrSyntaxException, PlurrLocaleNotFoundException {
+import org.junit.Test;
+
+public class FormatSpeedTest {
+  @Test
+  public void testFormatSpeed() throws PlurrInternalException, PlurrSyntaxException, PlurrLocaleNotFoundException {
     Plurr p = new Plurr();
     String s = "Do you want to delete {N_PLURAL:this {N} file|these {N} files} permanently?";
     int x = 1000000;

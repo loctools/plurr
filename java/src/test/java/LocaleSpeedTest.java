@@ -1,7 +1,10 @@
 import com.iafan.plurr.*;
 
-class locale_speed {
-  public static void main(String[] args) throws PlurrLocaleNotFoundException {
+import org.junit.Test;
+
+public class LocaleSpeedTest {
+  @Test
+  public void testLocaleSpeed() throws PlurrLocaleNotFoundException {
     Plurr p = new Plurr();
     int x = 1000000;
 
