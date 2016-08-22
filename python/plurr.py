@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (C) 2015 Igor Afanasyev, https://github.com/iafan/Plurr
+# Copyright (C) 2012-2016 Igor Afanasyev, https://github.com/iafan/Plurr
+# Version: 1.0.2
 
-__version__ = '1.0'
+__version__ = '1.0.2'
 
 import re
 
@@ -247,10 +248,13 @@ class Plurr(object):
                     if (auto_plurals and p_pos != -1 and
                         p_pos == len(name) - len(self._PLURAL)):
                         prefix = name[0:p_pos]
-                        if strict and prefix not in params:
-                            raise LookupError(
-                                u"Neither '{0}' nor '{1}' are defined".format(name, prefix)
-                            )
+                        if prefix not in params:
+                            if callback:
+                                params[prefix] = callback(prefix)
+                            elif strict:
+                                raise LookupError(
+                                    u"Neither '{0}' nor '{1}' are defined".format(name, prefix)
+                                )
 
                         prefix_value = 0
                         try:

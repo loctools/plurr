@@ -1,4 +1,5 @@
-// Copyright (C) 2015 Igor Afanasyev, https://github.com/iafan/Plurr
+// Copyright (C) 2012-2016 Igor Afanasyev, https://github.com/iafan/Plurr
+// Version: 1.0.2
 
 package com.iafan.plurr;
 
@@ -279,8 +280,12 @@ public class Plurr {
           int p_pos = name.indexOf(_PLURAL);
           if (this.autoPlurals && (p_pos != -1) && (p_pos == (name.length() - _PLURAL.length()))) {
             String prefix = name.substring(0, p_pos);
-            if (strict && !params.containsKey(prefix)) {
-              throw new PlurrSyntaxException("Neither '"+name+"' nor '"+prefix+"' are defined");
+            if (!params.containsKey(prefix)) {
+              if (this.callback != null) {
+                params.put(prefix, this.callback.getValue(prefix));
+              } else if (strict) {
+                throw new PlurrSyntaxException("Neither '"+name+"' nor '"+prefix+"' are defined");
+              }
             }
 
             int prefix_value = 0;

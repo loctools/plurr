@@ -1,0 +1,16 @@
+Revision history
+
+1.0.2   August 22, 2016
+
+        - Fixed a case when callback wouldn't fire for 'X' when both
+          'X_PLURAL' and 'X' are not present
+
+1.0.1   December 22, 2015
+
+        - Bumped the version to publish JavaScript version on NPM
+        - Misc improvements; see commits:
+          https://github.com/iafan/Plurr/commits/master
+
+1.0     May 21, 2012
+
+        * Code published on GitHub *

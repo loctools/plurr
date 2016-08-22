@@ -1,4 +1,5 @@
-// Copyright (C) 2012 Igor Afanasyev, https://github.com/iafan/Plurr
+// Copyright (C) 2012-2016 Igor Afanasyev, https://github.com/iafan/Plurr
+// Version: 1.0.2
 
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
@@ -250,10 +251,14 @@
             var pPos = name.indexOf(_PLURAL);
             if (autoPlurals && (pPos != -1) && (pPos == (name.length - _PLURAL.length))) {
               var prefix = name.substr(0, pPos);
-              if (strict && !(prefix in params)) {
-                throw new TypeError(
-                  "Neither '" + name + "' nor '" + prefix + "' are defined"
-                );
+              if (!(prefix in params)) {
+                if (callback) {
+                  params[prefix] = callback(prefix);
+                } else if (strict) {
+                  throw new TypeError(
+                    "Neither '" + name + "' nor '" + prefix + "' are defined"
+                  );
+                }
               }
 
               var prefixValue = parseInt(params[prefix]);

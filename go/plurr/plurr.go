@@ -1,4 +1,5 @@
-// Copyright (C) 2016 Igor Afanasyev, https://github.com/iafan/Plurr
+// Copyright (C) 2012-2016 Igor Afanasyev, https://github.com/iafan/Plurr
+// Version: 1.0.2
 
 package plurr
 
@@ -121,8 +122,16 @@ func (p *Plurr) Format(s string, params Params) (string, error) {
 				pPos := strings.Index(name, suffixPLURAL)
 				if p.autoPlurals && pPos != -1 && pPos == (utf8.RuneCountInString(name)-utf8.RuneCountInString(suffixPLURAL)) {
 					prefix := name[:pPos]
-					if _, ok = params[prefix]; p.strict && !ok {
-						return "", &PlaceholderValueNotDefinedError{name, prefix}
+					if _, ok = params[prefix]; !ok {
+						if p.callback != nil {
+							val, err := p.callback(prefix)
+							if err != nil {
+								return "", err
+							}
+							params[prefix] = val
+						} else if p.strict {
+							return "", &PlaceholderValueNotDefinedError{name, prefix}
+						}
 					}
 
 					prefixValue, err := strconv.Atoi(fmt.Sprintf("%v", params[prefix]))

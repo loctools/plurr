@@ -1,6 +1,7 @@
 <?php
 
-// Copyright (C) 2012 Igor Afanasyev, https://github.com/iafan/Plurr
+// Copyright (C) 2012-2016 Igor Afanasyev, https://github.com/iafan/Plurr
+// Version: 1.0.2
 
 class Plurr {
   private $plural;
@@ -246,8 +247,12 @@ class Plurr {
           $p_pos = strpos($name, self::_PLURAL);
           if ($auto_plurals && ($p_pos === (strlen($name) - strlen(self::_PLURAL)))) {
             $prefix = substr($name, 0, $p_pos);
-            if ($strict && !isset($params[$prefix])) {
-              throw new Exception("Neither '$name' nor '$prefix' are defined");
+            if (!isset($params[$prefix])) {
+              if ($callback) {
+                $params[$prefix] = $callback($prefix);
+              } elseif ($strict) {
+                throw new Exception("Neither '$name' nor '$prefix' are defined");
+              }
             }
 
             $prefix_value = (int) $params[$prefix];

@@ -1,8 +1,9 @@
-# Copyright (C) 2012 Igor Afanasyev, https://github.com/iafan/Plurr
+# Copyright (C) 2012-2016 Igor Afanasyev, https://github.com/iafan/Plurr
+# Version: 1.0.2
 
 package Plurr;
 
-my $VERSION = '1.0';
+my $VERSION = '1.0.2';
 
 use strict;
 
@@ -262,8 +263,12 @@ sub format {
         my $p_pos = index($name, $_PLURAL);
         if ($auto_plurals && ($p_pos != -1) && ($p_pos == (length($name) - length($_PLURAL)))) {
           my $prefix = substr($name, 0, $p_pos);
-          if ($strict && !exists $params->{$prefix}) {
-            die "Neither '$name' nor '$prefix' are defined\n";
+          if (!exists $params->{$prefix}) {
+            if ($callback) {
+              $params->{$prefix} = &$callback($prefix);
+            } elsif ($strict) {
+              die "Neither '$name' nor '$prefix' are defined\n";
+            }
           }
 
           my $prefix_value = int($params->{$prefix});
