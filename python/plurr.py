@@ -189,8 +189,11 @@ class Plurr(object):
 
     def set_locale(self, locale):
         """Choose the plural function based on locale name."""
-        self._plural = self._plural_equations[locale]
-        # TODO: raise error on missing locale
+        try:
+            self._plural = self._plural_equations[locale]
+        except KeyError:
+            if strict:
+                raise KeyError(u"Unkown locale '"+ locale +"'")
 
     def format(self, s, params, options=None):
         if options is None:

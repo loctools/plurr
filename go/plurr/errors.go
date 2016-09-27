@@ -28,7 +28,7 @@ var ErrEmptyPlaceholderName = errors.New("Empty placeholder name")
 var ErrEmptyListOfVariants = errors.New("Empty list of variants")
 
 // ErrPlaceholderValueNotDefined is returned by Format function
-// when neither palaceholder not its prefix variant (sans '_PLURAL')
+// when neither placeholder not its prefix variant (sans '_PLURAL')
 // is not defined
 type PlaceholderValueNotDefinedError struct {
 	name   string

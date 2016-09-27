@@ -191,6 +191,9 @@
     // Choose the plural function based on locale name
     //
     this.setLocale = function(locale) {
+      if (!(locale in pluralEquations)) {
+        throw new TypeError("Unknown locale '" + locale + "'");
+      }
       this.plural = pluralEquations[locale];
     }; // function locale
 
