@@ -174,7 +174,7 @@ class Plurr {
       'zh-personal' => function ($n) { return ($n>1) ? 1 : 0; }, // Chinese, used in special cases when dealing with personal pronoun
     );
 
-    // initialize with the provided or default locale ('en')
+    // initialize with the default locale
     $this->set_locale($this->default_options['locale']);
   } // function __construct
 
