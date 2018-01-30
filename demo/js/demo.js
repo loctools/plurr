@@ -12,7 +12,7 @@ var current_query;
 var prevent_hash_update;
 var prevent_update_from_hash;
 
-$(document).ready(function() {
+$(document).ready(function () {
   editor = CodeMirror.fromTextArea($('#source')[0]);
   editor.on('change', change_source);
 
@@ -54,10 +54,12 @@ function deserialize(query) {
   $('#strict').attr('checked', !!options.strict);
   editor.setValue(options.s ? options.s : '');
 
-  $('#params input').each(function(idx, elem) {
-    var name = $(elem).attr('param');
-    $(elem).val(options.p[name]);
-  });
+  if (options.p !== undefined) {
+    $('#params input').each(function (idx, elem) {
+      var name = $(elem).attr('param');
+      $(elem).val(options.p[name]);
+    });
+  }
 
   prevent_hash_update = false;
 }
@@ -75,7 +77,7 @@ function serialize(s, params, options) {
 function cb(name) {
   var value = param_cache[name] || '';
   params_keys += "\n" + name; // using newline as a delimiter
-  params_html += '<tr><td><code>' + name + ':</code></td><td><input id="param_'+name+'" param="'+name+'" value="'+value+'" /></td></tr>';
+  params_html += '<tr><td><code>' + name + ':</code></td><td><input id="param_' + name + '" param="' + name + '" value="' + value + '" /></td></tr>';
   return value;
 }
 
@@ -96,7 +98,7 @@ function _change(rebuild_params) {
   var out, params, options;
 
   try {
-    $('#params input').each(function(idx, elem) {
+    $('#params input').each(function (idx, elem) {
       var name = $(elem).attr('param');
       var value = $(elem).val().trim();
       if (value != '') {
@@ -123,7 +125,7 @@ function _change(rebuild_params) {
     }
 
     params = {};
-    $('#params input').each(function(idx, elem) {
+    $('#params input').each(function (idx, elem) {
       var name = $(elem).attr('param');
       var value = $(elem).val().trim();
       if (value != '') {
