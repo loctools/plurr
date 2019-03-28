@@ -182,6 +182,9 @@ class Plurr {
   // Choose the plural function based on locale name
   //
   public function set_locale($locale) {
+    if (!(array_key_exists($locale, $this->plural_equations))) {
+      throw new Exception("Unknown locale '" . $locale . "'");
+    }
     $this->plural = $this->plural_equations[$locale];
   } // function locale
 

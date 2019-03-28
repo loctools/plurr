@@ -15,6 +15,8 @@ language requirements. Plurr formatters are implemented in:
 **Go, Java, JavaScript, Perl, PHP, and Python**. Feel free to contribute
 to this project and provide support for your favorite languages.
 
+The plural forms we use can be found at the [Translate Project page](http://docs.translatehouse.org/projects/localization-guide/en/latest/l10n/pluralforms.html).
+
 [Try live demo &rarr;](http://iafan.github.io/plurr-demo/)
 ===============
 
