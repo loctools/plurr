@@ -6,6 +6,12 @@
 __version__ = '1.0.2'
 
 import re
+import sys
+
+if sys.version_info[0] == 3:  # py3
+    text_type = str
+else:
+    text_type = unicode
 
 
 class Plurr(object):
@@ -259,7 +265,7 @@ class Plurr(object):
                         prefix_value = 0
                         try:
                             prefix_value = int(params[prefix])
-                            if (unicode(params[prefix]) != unicode(prefix_value) or
+                            if (text_type(params[prefix]) != text_type(prefix_value) or
                                 prefix_value < 0):
                                 raise ValueError()
                         except (ValueError, KeyError):
@@ -289,7 +295,7 @@ class Plurr(object):
                     choice_idx = 0
                     try:
                         choice_idx = int(params[name])
-                        if (unicode(choice_idx) != unicode(params[name]) or
+                        if (text_type(choice_idx) != text_type(params[name]) or
                             choice_idx < 0):
                             raise ValueError()
                     except ValueError:
@@ -315,7 +321,7 @@ class Plurr(object):
                             choice_end = j
                     result = block[choice_start:choice_end]
 
-                blocks[len(blocks)-1] += unicode(result)
+                blocks[len(blocks)-1] += text_type(result)
                 continue
             blocks[len(blocks)-1] += chunk
 
