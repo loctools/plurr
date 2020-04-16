@@ -1,5 +1,5 @@
-// Copyright (C) 2012-2016 Igor Afanasyev, https://github.com/iafan/Plurr
-// Version: 1.0.2
+// Copyright (C) 2012-2020 Igor Afanasyev, https://github.com/iafan/Plurr
+// Version: 1.0.3
 
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
