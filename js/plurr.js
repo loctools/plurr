@@ -21,6 +21,177 @@
 
   var _PLURAL = '_PLURAL';
 
+  //
+  // list of plural equations taken from
+  // http://translate.sourceforge.net/wiki/l10n/pluralforms
+  //
+  var pluralEquations = {
+    'ach': 'zero', // Acholi
+    'af': 'en', // Afrikaans
+    'ak': 'fr', // Akan
+    'am': 'fr', // Amharic
+    'an': 'en', // Aragonese
+    'ar': function(n) { return n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5; }, // Arabic
+    'arn': 'fr', // Mapudungun
+    'ast': 'en', // Asturian
+    'ay': 'zero', // Aymara
+    'az': 'en', // Azerbaijani
+
+    'be': 'ru', // Belarusian
+    'bg': 'en', // Bulgarian
+    'bn': 'en', // Bengali
+    'bo': 'zero', // Tibetan
+    'br': 'fr', // Breton
+    'bs': 'ru', // Bosnian
+
+    'ca': 'en', // Catalan
+    'cgg': 'zero', // Chiga
+    'cs': function(n) { return (n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2; }, // Czech
+    'csb': function(n) { return n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2; }, // Kashubian
+    'cy': function(n) { return (n==1) ? 0 : (n==2) ? 1 : (n!=8 && n!=11) ? 2 : 3; }, // Welsh
+
+    'da': 'en', // Danish
+    'de': 'en', // German
+    'dz': 'zero', // Dzongkha
+
+    'el': 'en', // Greek
+    'en': 'en', // English
+    'eo': 'en', // Esperanto
+    'es': 'en', // Spanish
+    'es-ar': 'en', // Argentinean Spanish
+    'et': 'en', // Estonian
+    'eu': 'en', // Basque
+
+    'fa': 'zero', // Persian
+    'fi': 'en', // Finnish
+    'fil': 'fr', // Filipino
+    'fo': 'en', // Faroese
+    'fr': 'fr', // French
+    'fur': 'en', // Friulian
+    'fy': 'en', // Frisian
+
+    'ga': function(n) { return n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4; }, // Irish
+    'gl': 'en', // Galician
+    'gu': 'en', // Gujarati
+    'gun': 'fr', // Gun
+
+    'ha': 'en', // Hausa
+    'he': 'en', // Hebrew
+    'hi': 'en', // Hindi
+    'hy': 'zero', // Armenian
+    'hr': 'ru', // Croatian
+    'hu': 'en', // Hungarian
+
+    'ia': 'en', // Interlingua
+    'id': 'zero', // Indonesian
+    'is': function(n) { return (n%10!=1 || n%100==11); }, // Icelandic
+    'it': 'en', // Italian
+
+    'ja': 'zero', // Japanese
+    'jv': function(n) { return (n!=0) ? 1 : 0; }, // Javanese
+
+    'ka': 'zero', // Georgian
+    'kk': 'zero', // Kazakh
+    'km': 'zero', // Khmer
+    'kn': 'en', // Kannada
+    'ko': 'zero', // Korean
+    'ku': 'en', // Kurdish
+    'kw': function(n) { return (n==1) ? 0 : (n==2) ? 1 : (n==3) ? 2 : 3; }, // Cornish
+    'ky': 'zero', // Kyrgyz
+
+    'lb': function(n) { return (n!=1); }, // Letzeburgesch
+    'ln': 'fr', // Lingala
+    'lo': 'zero', // Lao
+    'lt': function(n) { return (n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2); }, // Lithuanian
+    'lv': function(n) { return (n%10==1 && n%100!=11 ? 0 : n!=0 ? 1 : 2); }, // Latvian
+
+    'mfe': 'fr', // Mauritian Creole
+    'mg': 'fr', // Malagasy
+    'mi': 'fr', // Maori
+    'mk': function(n) { return n==1 || n%10==1 ? 0 : 1; }, // Macedonian
+    'ml': 'en', // Malayalam
+    'mn': 'en', // Mongolian
+    'mr': 'en', // Marathi
+    'ms': 'zero', // Malay
+    'mt': function(n) { return (n==1 ? 0 : n==0 || ( n%100>1 && n%100<11) ? 1 : (n%100>10 && n%100<20 ) ? 2 : 3); }, // Maltese
+
+    'nah': 'en', // Nahuatl
+    'nap': 'en', // Neapolitan
+    'nb': 'en', // Norwegian Bokmal
+    'ne': 'en', // Nepali
+    'nl': 'en', // Dutch
+    'se': 'en', // Northern Sami
+    'nn': 'en', // Norwegian Nynorsk
+    'no': 'en', // Norwegian (old code)
+    'nso': 'en', // Northern Sotho
+
+    'oc': 'fr', // Occitan
+    'or': 'en', // Oriya
+
+    'ps': 'en', // Pashto
+    'pa': 'en', // Punjabi
+    'pap': 'en', // Papiamento
+    'pl': function(n) { return (n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2); }, // Polish
+    'pms': 'en', // Piemontese
+    'pt': 'en', // Portuguese
+    'pt-br': 'fr', // Brazilian Portuguese
+
+    'rm': function(n) { return (n!=1); }, // Romansh
+    'ro': function(n) { return (n==1 ? 0 : (n==0 || (n%100>0 && n%100<20)) ? 1 : 2); }, // Romanian
+    'ru': 'ru', // Russian
+
+    'sco': 'en', // Scots
+    'si': 'en', // Sinhala
+    'sk': function(n) { return (n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2; }, // Slovak
+    'sl': function(n) { return (n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0); }, // Slovenian
+    'so': 'en', // Somali
+    'son': 'zero', // Songhay
+    'sq': 'en', // Albanian
+    'sr': 'ru', // Serbian
+    'su': 'zero', // Sundanese
+    'sw': 'en', // Swahili
+    'sv': 'en', // Swedish
+
+    'ta': 'en', // Tamil
+    'te': 'en', // Telugu
+    'tg': 'en', // Tajik
+    'ti': 'fr', // Tigrinya
+    'th': 'zero', // Thai
+    'tk': 'en', // Turkmen
+    'tr': 'zero', // Turkish
+    'tt': 'zero', // Tatar
+
+    'ug': 'zero', // Uyghur
+    'uk': 'ru', // Ukrainian
+    'ur': 'en', // Urdu
+    'uz': 'zero', // Uzbek
+
+    'vi': 'zero', // Vietnamese
+
+    'wa': 'fr', // Walloon
+
+    'zh': 'zero', // Chinese
+    'zh-personal': 'fr'
+  };
+
+  //
+  // list of grouped equations which are shared across multiple languages
+  //
+  var familyEquations = {
+    zero: function(n) { return 0; },
+    en: function(n) { return (n!=1) ? 1 : 0; },
+    fr: function(n) { return (n>1) ? 1 : 0; },
+    ru: function(n) { return (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2); }
+  };
+
+  function getEquation(locale) {
+    var equation = pluralEquations[locale];
+    if (typeof equation === 'function') {
+      return equation;
+    }
+    return familyEquations[equation] || familyEquations.en;
+  }
+
 
   function Plurr(options) {
     //
@@ -35,163 +206,10 @@
     });
 
     //
-    // list of plural equations taken from
-    // http://translate.sourceforge.net/wiki/l10n/pluralforms
-    //
-    var pluralEquations = {
-      'ach': function(n) { return 0; }, // Acholi
-      'af': function(n) { return (n!=1) ? 1 : 0; }, // Afrikaans
-      'ak': function(n) { return (n>1) ? 1 : 0; }, // Akan
-      'am': function(n) { return (n>1) ? 1 : 0; }, // Amharic
-      'an': function(n) { return (n!=1) ? 1 : 0; }, // Aragonese
-      'ar': function(n) { return n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5; }, // Arabic
-      'arn': function(n) { return (n>1) ? 1 : 0; }, // Mapudungun
-      'ast': function(n) { return (n!=1) ? 1 : 0; }, // Asturian
-      'ay': function(n) { return 0; }, // Aymara
-      'az': function(n) { return (n!=1) ? 1 : 0; }, // Azerbaijani
-
-      'be': function(n) { return (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2); }, // Belarusian
-      'bg': function(n) { return (n!=1) ? 1 : 0; }, // Bulgarian
-      'bn': function(n) { return (n!=1) ? 1 : 0; }, // Bengali
-      'bo': function(n) { return 0; }, // Tibetan
-      'br': function(n) { return (n>1) ? 1 : 0; }, // Breton
-      'bs': function(n) { return (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2); }, // Bosnian
-
-      'ca': function(n) { return (n!=1) ? 1 : 0; }, // Catalan
-      'cgg': function(n) { return 0; }, // Chiga
-      'cs': function(n) { return (n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2; }, // Czech
-      'csb': function(n) { return n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2; }, // Kashubian
-      'cy': function(n) { return (n==1) ? 0 : (n==2) ? 1 : (n!=8 && n!=11) ? 2 : 3; }, // Welsh
-
-      'da': function(n) { return (n!=1) ? 1 : 0; }, // Danish
-      'de': function(n) { return (n!=1) ? 1 : 0; }, // German
-      'dz': function(n) { return 0; }, // Dzongkha
-
-      'el': function(n) { return (n!=1) ? 1 : 0; }, // Greek
-      'en': function(n) { return (n!=1) ? 1 : 0; }, // English
-      'eo': function(n) { return (n!=1) ? 1 : 0; }, // Esperanto
-      'es': function(n) { return (n!=1) ? 1 : 0; }, // Spanish
-      'es-ar': function(n) { return (n!=1) ? 1 : 0; }, // Argentinean Spanish
-      'et': function(n) { return (n!=1) ? 1 : 0; }, // Estonian
-      'eu': function(n) { return (n!=1) ? 1 : 0; }, // Basque
-
-      'fa': function(n) { return 0; }, // Persian
-      'fi': function(n) { return (n!=1) ? 1 : 0; }, // Finnish
-      'fil': function(n) { return (n>1) ? 1 : 0; }, // Filipino
-      'fo': function(n) { return (n!=1) ? 1 : 0; }, // Faroese
-      'fr': function(n) { return (n>1) ? 1 : 0; }, // French
-      'fur': function(n) { return (n!=1) ? 1 : 0; }, // Friulian
-      'fy': function(n) { return (n!=1) ? 1 : 0; }, // Frisian
-
-      'ga': function(n) { return n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4; }, // Irish
-      'gl': function(n) { return (n!=1) ? 1 : 0; }, // Galician
-      'gu': function(n) { return (n!=1) ? 1 : 0; }, // Gujarati
-      'gun': function(n) { return (n>1) ? 1 : 0; }, // Gun
-
-      'ha': function(n) { return (n!=1) ? 1 : 0; }, // Hausa
-      'he': function(n) { return (n!=1) ? 1 : 0; }, // Hebrew
-      'hi': function(n) { return (n!=1) ? 1 : 0; }, // Hindi
-      'hy': function(n) { return 0; }, // Armenian
-      'hr': function(n) { return (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2); }, // Croatian
-      'hu': function(n) { return (n!=1) ? 1 : 0; }, // Hungarian
-
-      'ia': function(n) { return (n!=1) ? 1 : 0; }, // Interlingua
-      'id': function(n) { return 0; }, // Indonesian
-      'is': function(n) { return (n%10!=1 || n%100==11); }, // Icelandic
-      'it': function(n) { return (n!=1) ? 1 : 0; }, // Italian
-
-      'ja': function(n) { return 0; }, // Japanese
-      'jv': function(n) { return (n!=0) ? 1 : 0; }, // Javanese
-
-      'ka': function(n) { return 0; }, // Georgian
-      'kk': function(n) { return 0; }, // Kazakh
-      'km': function(n) { return 0; }, // Khmer
-      'kn': function(n) { return (n!=1) ? 1 : 0; }, // Kannada
-      'ko': function(n) { return 0; }, // Korean
-      'ku': function(n) { return (n!=1) ? 1 : 0; }, // Kurdish
-      'kw': function(n) { return (n==1) ? 0 : (n==2) ? 1 : (n==3) ? 2 : 3; }, // Cornish
-      'ky': function(n) { return 0; }, // Kyrgyz
-
-      'lb': function(n) { return (n!=1); }, // Letzeburgesch
-      'ln': function(n) { return (n>1) ? 1 : 0; }, // Lingala
-      'lo': function(n) { return 0; }, // Lao
-      'lt': function(n) { return (n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2); }, // Lithuanian
-      'lv': function(n) { return (n%10==1 && n%100!=11 ? 0 : n!=0 ? 1 : 2); }, // Latvian
-
-      'mfe': function(n) { return (n>1) ? 1 : 0; }, // Mauritian Creole
-      'mg': function(n) { return (n>1) ? 1 : 0; }, // Malagasy
-      'mi': function(n) { return (n>1) ? 1 : 0; }, // Maori
-      'mk': function(n) { return n==1 || n%10==1 ? 0 : 1; }, // Macedonian
-      'ml': function(n) { return (n!=1) ? 1 : 0; }, // Malayalam
-      'mn': function(n) { return (n!=1) ? 1 : 0; }, // Mongolian
-      'mr': function(n) { return (n!=1) ? 1 : 0; }, // Marathi
-      'ms': function(n) { return 0; }, // Malay
-      'mt': function(n) { return (n==1 ? 0 : n==0 || ( n%100>1 && n%100<11) ? 1 : (n%100>10 && n%100<20 ) ? 2 : 3); }, // Maltese
-
-      'nah': function(n) { return (n!=1) ? 1 : 0; }, // Nahuatl
-      'nap': function(n) { return (n!=1) ? 1 : 0; }, // Neapolitan
-      'nb': function(n) { return (n!=1) ? 1 : 0; }, // Norwegian Bokmal
-      'ne': function(n) { return (n!=1) ? 1 : 0; }, // Nepali
-      'nl': function(n) { return (n!=1) ? 1 : 0; }, // Dutch
-      'se': function(n) { return (n!=1) ? 1 : 0; }, // Northern Sami
-      'nn': function(n) { return (n!=1) ? 1 : 0; }, // Norwegian Nynorsk
-      'no': function(n) { return (n!=1) ? 1 : 0; }, // Norwegian (old code)
-      'nso': function(n) { return (n!=1) ? 1 : 0; }, // Northern Sotho
-
-      'oc': function(n) { return (n>1) ? 1 : 0; }, // Occitan
-      'or': function(n) { return (n!=1) ? 1 : 0; }, // Oriya
-
-      'ps': function(n) { return (n!=1) ? 1 : 0; }, // Pashto
-      'pa': function(n) { return (n!=1) ? 1 : 0; }, // Punjabi
-      'pap': function(n) { return (n!=1) ? 1 : 0; }, // Papiamento
-      'pl': function(n) { return (n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2); }, // Polish
-      'pms': function(n) { return (n!=1) ? 1 : 0; }, // Piemontese
-      'pt': function(n) { return (n!=1) ? 1 : 0; }, // Portuguese
-      'pt-br': function(n) { return (n>1) ? 1 : 0; }, // Brazilian Portuguese
-
-      'rm': function(n) { return (n!=1); }, // Romansh
-      'ro': function(n) { return (n==1 ? 0 : (n==0 || (n%100>0 && n%100<20)) ? 1 : 2); }, // Romanian
-      'ru': function(n) { return (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2); }, // Russian
-
-      'sco': function(n) { return (n!=1) ? 1 : 0; }, // Scots
-      'si': function(n) { return (n!=1) ? 1 : 0; }, // Sinhala
-      'sk': function(n) { return (n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2; }, // Slovak
-      'sl': function(n) { return (n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0); }, // Slovenian
-      'so': function(n) { return (n!=1) ? 1 : 0; }, // Somali
-      'son': function(n) { return 0; }, // Songhay
-      'sq': function(n) { return (n!=1) ? 1 : 0; }, // Albanian
-      'sr': function(n) { return (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2); }, // Serbian
-      'su': function(n) { return 0; }, // Sundanese
-      'sw': function(n) { return (n!=1) ? 1 : 0; }, // Swahili
-      'sv': function(n) { return (n!=1) ? 1 : 0; }, // Swedish
-
-      'ta': function(n) { return (n!=1) ? 1 : 0; }, // Tamil
-      'te': function(n) { return (n!=1) ? 1 : 0; }, // Telugu
-      'tg': function(n) { return (n!=1) ? 1 : 0; }, // Tajik
-      'ti': function(n) { return (n>1) ? 1 : 0; }, // Tigrinya
-      'th': function(n) { return 0; }, // Thai
-      'tk': function(n) { return (n!=1) ? 1 : 0; }, // Turkmen
-      'tr': function(n) { return 0; }, // Turkish
-      'tt': function(n) { return 0; }, // Tatar
-
-      'ug': function(n) { return 0; }, // Uyghur
-      'uk': function(n) { return (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2); }, // Ukrainian
-      'ur': function(n) { return (n!=1) ? 1 : 0; }, // Urdu
-      'uz': function(n) { return 0; }, // Uzbek
-
-      'vi': function(n) { return 0; }, // Vietnamese
-
-      'wa': function(n) { return (n>1) ? 1 : 0; }, // Walloon
-
-      'zh': function(n) { return 0; }, // Chinese
-      'zh-personal': function(n) { return (n>1) ? 1 : 0; } // Chinese, used in special cases when dealing with personal pronoun
-    };
-
-    //
     // Choose the plural function based on locale name
     //
     this.setLocale = function(locale) {
-      this.plural = pluralEquations[locale];
+      this.plural = getEquation(locale);
     }; // function locale
 
     this.format = function(s, params, options) {
@@ -205,9 +223,7 @@
 
       options = options || {};
 
-      var pluralFunc = "locale" in options ?
-        pluralEquations[options.locale] || pluralEquations.en :
-        this.plural;
+      var pluralFunc = 'locale' in options ? getEquation(options.locale) : this.plural;
 
       addMissingOptions(options, defaultOptions);
 
