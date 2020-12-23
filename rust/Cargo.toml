@@ -1,0 +1,10 @@
+[package]
+name = "plurr"
+version = "0.1.0"
+authors = ["Julen Ruiz Aizpuru <julenx@gmail.com>"]
+edition = "2018"
+description = "A library for handling plurals/genders/conditionals."
+license = "MIT"
+
+
+[dependencies]
