@@ -12,10 +12,10 @@ friendly, like Java's MessageFormat/ChoiceFormat.
 conditionals and placeholders** designed to be easy to support for
 developers and understandable for translators yet robust to support different
 language requirements. Plurr formatters are implemented in:
-**Go, Java, JavaScript, Objective-C, Perl, PHP, and Python**. Feel free to
+**Go, Java, JavaScript, Objective-C, Perl, PHP, Python, and Rust**. Feel free to
 contribute to this project and provide support for your favorite languages.
 
-[Try live demo &rarr;](http://iafan.github.io/plurr-demo/)
+[Try the live demo &rarr;](http://iafan.github.io/plurr-demo/)
 ===============
 
 Advantages
