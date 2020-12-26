@@ -15,7 +15,7 @@ language requirements. Plurr formatters are implemented in:
 **Go, Java, JavaScript, Objective-C, Perl, PHP, Python, and Rust**. Feel free to
 contribute to this project and provide support for your favorite languages.
 
-[Try the live demo &rarr;](http://iafan.github.io/plurr-demo/)
+[Try the live demo &rarr;](https://iafan.github.io/plurr-demo/)
 ===============
 
 Advantages
