@@ -104,7 +104,7 @@ my $_plural_equations = {
 
   'ia' => sub { my $n = shift; return ($n!=1) ? 1 : 0; }, # Interlingua
   'id' => sub { my $n = shift; return 0; }, # Indonesian
-  'is' => sub { my $n = shift; return ($n%10!=1 || $n%100==11); }, # Icelandic
+  'is' => sub { my $n = shift; return ($n%10!=1 || $n%100==11) ? 1 : 0; }, # Icelandic
   'it' => sub { my $n = shift; return ($n!=1) ? 1 : 0; }, # Italian
 
   'ja' => sub { my $n = shift; return 0; }, # Japanese
@@ -119,7 +119,7 @@ my $_plural_equations = {
   'kw' => sub { my $n = shift; return ($n==1) ? 0 : ($n==2) ? 1 : ($n==3) ? 2 : 3; }, # Cornish
   'ky' => sub { my $n = shift; return 0; }, # Kyrgyz
 
-  'lb' => sub { my $n = shift; return ($n!=1); }, # Letzeburgesch
+  'lb' => sub { my $n = shift; return ($n!=1) ? 1 : 0; }, # Letzeburgesch
   'ln' => sub { my $n = shift; return ($n>1) ? 1 : 0; }, # Lingala
   'lo' => sub { my $n = shift; return 0; }, # Lao
   'lt' => sub { my $n = shift; return ($n%10==1 && $n%100!=11 ? 0 : $n%10>=2 && ($n%100<10 || $n%100>=20) ? 1 : 2); }, # Lithuanian
@@ -156,7 +156,7 @@ my $_plural_equations = {
   'pt' => sub { my $n = shift; return ($n!=1) ? 1 : 0; }, # Portuguese
   'pt-br' => sub { my $n = shift; return ($n>1) ? 1 : 0; }, # Brazilian Portuguese
 
-  'rm' => sub { my $n = shift; return ($n!=1); }, # Romansh
+  'rm' => sub { my $n = shift; return ($n!=1) ? 1 : 0; }, # Romansh
   'ro' => sub { my $n = shift; return ($n==1 ? 0 : ($n==0 || ($n%100>0 && $n%100<20)) ? 1 : 2); }, # Romanian
   'ru' => sub { my $n = shift; return ($n%10==1 && $n%100!=11 ? 0 : $n%10>=2 && $n%10<=4 && ($n%100<10 || $n%100>=20) ? 1 : 2); }, # Russian
 

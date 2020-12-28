@@ -82,7 +82,7 @@ class Plurr(object):
 
         'ia': lambda n: 1 if (n!=1) else 0,  # Interlingua
         'id': lambda n: 0,  # Indonesian
-        'is': lambda n: (n%10!=1 or n%100==11),  # Icelandic
+        'is': lambda n: 1 if (n%10!=1 or n%100==11) else 0,  # Icelandic
         'it': lambda n: 1 if (n!=1) else 0,  # Italian
 
         'ja': lambda n: 0,  # Japanese
@@ -97,7 +97,7 @@ class Plurr(object):
         'kw': lambda n: 0 if (n==1) else 1 if (n==2) else 2 if (n==3) else 3,  # Cornish
         'ky': lambda n: 0,  # Kyrgyz
 
-        'lb': lambda n: (n!=1),  # Letzeburgesch
+        'lb': lambda n: 1 if (n!=1) else 0,  # Letzeburgesch
         'ln': lambda n: 1 if (n>1) else 0,  # Lingala
         'lo': lambda n: 0,  # Lao
         'lt': lambda n: 0 if n%10==1 and n%100!=11 else 1 if n%10>=2 and (n%100<10 or n%100>=20) else 2,  # Lithuanian
@@ -134,7 +134,7 @@ class Plurr(object):
         'pt': lambda n: 1 if (n!=1) else 0,  # Portuguese
         'pt-br': lambda n: 1 if (n>1) else 0,  # Brazilian Portuguese
 
-        'rm': lambda n: (n!=1),  # Romansh
+        'rm': lambda n: 1 if (n!=1) else 0,  # Romansh
         'ro': lambda n: 0 if n==1 else 1 if (n==0 or (n%100>0 and n%100<20)) else 2,  # Romanian
         'ru': lambda n: 0 if n%10==1 and n%100!=11 else 1 if n%10>=2 and n%10<=4 and (n%100<10 or n%100>=20) else 2,  # Russian
 

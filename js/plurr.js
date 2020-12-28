@@ -97,7 +97,7 @@
 
       'ia': function(n) { return (n!=1) ? 1 : 0; }, // Interlingua
       'id': function(n) { return 0; }, // Indonesian
-      'is': function(n) { return (n%10!=1 || n%100==11); }, // Icelandic
+      'is': function(n) { return (n%10!=1 || n%100==11) ? 1 : 0; }, // Icelandic
       'it': function(n) { return (n!=1) ? 1 : 0; }, // Italian
 
       'ja': function(n) { return 0; }, // Japanese
@@ -112,7 +112,7 @@
       'kw': function(n) { return (n==1) ? 0 : (n==2) ? 1 : (n==3) ? 2 : 3; }, // Cornish
       'ky': function(n) { return 0; }, // Kyrgyz
 
-      'lb': function(n) { return (n!=1); }, // Letzeburgesch
+      'lb': function(n) { return (n!=1) ? 1 : 0; }, // Letzeburgesch
       'ln': function(n) { return (n>1) ? 1 : 0; }, // Lingala
       'lo': function(n) { return 0; }, // Lao
       'lt': function(n) { return (n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2); }, // Lithuanian
@@ -149,7 +149,7 @@
       'pt': function(n) { return (n!=1) ? 1 : 0; }, // Portuguese
       'pt-br': function(n) { return (n>1) ? 1 : 0; }, // Brazilian Portuguese
 
-      'rm': function(n) { return (n!=1); }, // Romansh
+      'rm': function(n) { return (n!=1) ? 1 : 0; }, // Romansh
       'ro': function(n) { return (n==1 ? 0 : (n==0 || (n%100>0 && n%100<20)) ? 1 : 2); }, // Romanian
       'ru': function(n) { return (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2); }, // Russian
 
