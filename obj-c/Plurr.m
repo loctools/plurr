@@ -511,7 +511,7 @@ static NSString* const kPluralSuffix = @"_PLURAL";
 }
 // Icelandic
 - (NSUInteger)pluralVariationsForCount_is: (NSUInteger)n {
-  return (n%10!=1 || n%100==11);
+  return (n%10!=1 || n%100==11) ? 1 : 0;
 }
 // Italian
 - (NSUInteger)pluralVariationsForCount_it: (NSUInteger)n {
@@ -562,7 +562,7 @@ static NSString* const kPluralSuffix = @"_PLURAL";
 
 // Letzeburgesch
 - (NSUInteger)pluralVariationsForCount_lb: (NSUInteger)n {
-  return (n!=1);
+  return (n!=1) ? 1 : 0;
 }
 // Lingala
 - (NSUInteger)pluralVariationsForCount_ln: (NSUInteger)n {
@@ -695,7 +695,7 @@ static NSString* const kPluralSuffix = @"_PLURAL";
 
 // Romansh
 - (NSUInteger)pluralVariationsForCount_rm: (NSUInteger)n {
-  return (n!=1);
+  return (n!=1) ? 1 : 0;
 }
 // Romanian
 - (NSUInteger)pluralVariationsForCount_ro: (NSUInteger)n {
