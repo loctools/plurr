@@ -25,23 +25,23 @@ pub enum PlurrError {
 type PlurrParams = HashMap<String, String>;
 
 #[derive(Debug)]
-pub struct Plurr {
-    locale: String,
+pub struct Plurr<'a> {
+    locale: &'a str,
     auto_plurals: bool,
     strict: bool,
     params: PlurrParams,
 }
 
-impl Default for Plurr {
+impl<'a> Default for Plurr<'a> {
     fn default() -> Self {
         Plurr::new()
     }
 }
 
-impl Plurr {
+impl<'a> Plurr<'a> {
     pub fn new() -> Self {
         Plurr {
-            locale: "en".to_string(),
+            locale: "en",
             auto_plurals: true,
             strict: true,
             params: PlurrParams::new(),
@@ -50,8 +50,8 @@ impl Plurr {
 
     /// Sets the locale for Plurr. If this is not called or an incompatible
     /// `locale_code` is provided, it defaults to English.
-    pub fn locale(&mut self, locale_code: &str) -> &mut Plurr {
-        self.locale = locale_code.to_string();
+    pub fn locale(&mut self, locale_code: &'a str) -> &mut Plurr<'a> {
+        self.locale = locale_code;
         self
     }
 
@@ -60,20 +60,20 @@ impl Plurr {
     /// the current locale.
     /// * Without auto-plurals, you will need to manually provide an `N_PLURAL`
     /// parameter before calling `format()`.
-    pub fn auto_plurals(&mut self, auto_plurals: bool) -> &mut Plurr {
+    pub fn auto_plurals(&mut self, auto_plurals: bool) -> &mut Plurr<'a> {
         self.auto_plurals = auto_plurals;
         self
     }
 
     /// Toggles strict mode. In strict mode, errors are not skipped.
-    pub fn strict(&mut self, strict: bool) -> &mut Plurr {
+    pub fn strict(&mut self, strict: bool) -> &mut Plurr<'a> {
         self.strict = strict;
         self
     }
 
     /// Stores a parameter value. Parameters must be fed before calling
     /// `format()`.
-    pub fn param(&mut self, key: &str, value: &str) -> &mut Plurr {
+    pub fn param(&mut self, key: &str, value: &str) -> &mut Plurr<'a> {
         self.params.insert(key.to_string(), value.to_string());
         self
     }
