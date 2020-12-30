@@ -9,11 +9,9 @@ fn format_error_unmatched_braces() {
     let mut p = Plurr::new();
 
     let result_opening = p.format("err {");
-    assert!(result_opening.is_err());
     assert_eq!(result_opening, Err(PlurrError::UnmatchedOpeningBrace));
 
     let result_closing = p.format("err }");
-    assert!(result_closing.is_err());
     assert_eq!(result_closing, Err(PlurrError::UnmatchedClosingBrace));
 }
 
@@ -22,7 +20,6 @@ fn format_error_param_undefined() {
     let mut p = Plurr::new();
 
     let result = p.format("{foo}");
-    assert!(result.is_err());
     assert_eq!(result, Err(PlurrError::UndefinedParameter));
 }
 
