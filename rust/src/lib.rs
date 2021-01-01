@@ -122,13 +122,13 @@ impl<'a> Plurr<'a> {
                             return Err(PlurrError::EmptyPlaceholder);
                         }
                         // Multiple choices
-                        block[0..colon_pos].to_string()
+                        &block[0..colon_pos]
                     }
                     // Simple placeholder
-                    None => block.to_owned(),
+                    None => &block,
                 };
 
-                if !self.params.contains_key(&name) {
+                if !self.params.contains_key(name) {
                     let p_pos = name.find(_PLURAL);
                     if self.auto_plurals
                         && p_pos.is_some()
@@ -153,7 +153,7 @@ impl<'a> Plurr<'a> {
                         }
 
                         self.params.insert(
-                            name.clone(),
+                            name.to_owned(),
                             plurals::plural_func(&self.locale, prefix_value).to_string(),
                         );
                     } else if self.strict {
@@ -170,7 +170,7 @@ impl<'a> Plurr<'a> {
                             return Err(PlurrError::EmptyVariants);
                         }
 
-                        let value = self.params.get(&name).unwrap();
+                        let value = self.params.get(name).unwrap();
                         let mut choice_idx: usize = value.parse().unwrap_or(0);
 
                         let content_start = colon_pos + 1;
@@ -182,7 +182,7 @@ impl<'a> Plurr<'a> {
                         }
                         parts[choice_idx]
                     }
-                    None => self.params.get(&name).unwrap(),
+                    None => self.params.get(name).unwrap(),
                 };
 
                 let index = blocks.len() - 1;
