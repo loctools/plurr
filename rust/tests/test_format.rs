@@ -182,3 +182,19 @@ fn format_args() {
     assert_eq!(p.param("FOO", "5.5").format(s), Ok("5.5".to_string()));
     assert_eq!(p.param("FOO", "bar").format(s), Ok("bar".to_string()));
 }
+
+#[test]
+fn format_no_str_args() {
+    let mut p = Plurr::new();
+    let s = "{FOO}";
+
+    use std::net::Ipv4Addr;
+    let localhost = Ipv4Addr::new(127, 0, 0, 1);
+
+    assert_eq!(p.param("FOO", 1).format(s), Ok("1".to_string()));
+    assert_eq!(p.param("FOO", 5.5).format(s), Ok("5.5".to_string()));
+    assert_eq!(
+        p.param("FOO", localhost).format(s),
+        Ok("127.0.0.1".to_string())
+    );
+}

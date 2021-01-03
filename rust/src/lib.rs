@@ -73,7 +73,7 @@ impl<'a> Plurr<'a> {
 
     /// Stores a parameter value. Parameters must be fed before calling
     /// `format()`.
-    pub fn param(&mut self, key: &str, value: &str) -> &mut Self {
+    pub fn param<T: ToString>(&mut self, key: &str, value: T) -> &mut Self {
         self.params.insert(key.to_string(), value.to_string());
         self
     }
