@@ -40,7 +40,7 @@ impl<'a> Default for Plurr<'a> {
 
 impl<'a> Plurr<'a> {
     pub fn new() -> Self {
-        Plurr {
+        Self {
             locale: "en",
             auto_plurals: true,
             strict: true,
@@ -50,7 +50,7 @@ impl<'a> Plurr<'a> {
 
     /// Sets the locale for Plurr. If this is not called or an incompatible
     /// `locale_code` is provided, it defaults to English.
-    pub fn locale(&mut self, locale_code: &'a str) -> &mut Plurr<'a> {
+    pub fn locale(&mut self, locale_code: &'a str) -> &mut Self {
         self.locale = locale_code;
         self
     }
@@ -60,20 +60,20 @@ impl<'a> Plurr<'a> {
     /// the current locale.
     /// * Without auto-plurals, you will need to manually provide an `N_PLURAL`
     /// parameter before calling `format()`.
-    pub fn auto_plurals(&mut self, auto_plurals: bool) -> &mut Plurr<'a> {
+    pub fn auto_plurals(&mut self, auto_plurals: bool) -> &mut Self {
         self.auto_plurals = auto_plurals;
         self
     }
 
     /// Toggles strict mode. In strict mode, errors are not skipped.
-    pub fn strict(&mut self, strict: bool) -> &mut Plurr<'a> {
+    pub fn strict(&mut self, strict: bool) -> &mut Self {
         self.strict = strict;
         self
     }
 
     /// Stores a parameter value. Parameters must be fed before calling
     /// `format()`.
-    pub fn param(&mut self, key: &str, value: &str) -> &mut Plurr<'a> {
+    pub fn param(&mut self, key: &str, value: &str) -> &mut Self {
         self.params.insert(key.to_string(), value.to_string());
         self
     }
