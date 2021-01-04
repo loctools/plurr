@@ -141,16 +141,15 @@ impl<'a> Plurr<'a> {
 
                         // This is where the actual parameter replacing happens
                         let prefix_value_maybe = self.params.get(&prefix).unwrap();
-                        let prefix_value;
-                        match prefix_value_maybe.parse::<usize>() {
-                            Ok(parsed_value) => prefix_value = parsed_value,
+                        let prefix_value = match prefix_value_maybe.parse::<usize>() {
+                            Ok(parsed_value) => parsed_value,
                             Err(_) => {
                                 if self.strict {
                                     return Err(PlurrError::NotZeroOrPositiveValue);
                                 }
-                                prefix_value = 0;
+                                0
                             }
-                        }
+                        };
 
                         self.params.insert(
                             name.to_owned(),
