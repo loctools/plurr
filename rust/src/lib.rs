@@ -116,16 +116,14 @@ impl<'a> Plurr<'a> {
                 let block = blocks.pop().unwrap();
                 let colon_pos_maybe = block.find(':');
 
-                let name = match colon_pos_maybe {
-                    Some(colon_pos) => {
-                        if self.strict && colon_pos == 0 {
-                            return Err(PlurrError::EmptyPlaceholder);
-                        }
-                        // Multiple choices
-                        &block[0..colon_pos]
+                let name = if let Some(colon_pos) = colon_pos_maybe {
+                    if self.strict && colon_pos == 0 {
+                        return Err(PlurrError::EmptyPlaceholder);
                     }
-                    // Simple placeholder
-                    None => &block,
+                    // Multiple choices
+                    &block[0..colon_pos]
+                } else {
+                    &block
                 };
 
                 if !self.params.contains_key(name) {
@@ -141,15 +139,15 @@ impl<'a> Plurr<'a> {
 
                         // This is where the actual parameter replacing happens
                         let prefix_value_maybe = self.params.get(&prefix).unwrap();
-                        let prefix_value = match prefix_value_maybe.parse::<usize>() {
-                            Ok(parsed_value) => parsed_value,
-                            Err(_) => {
+                        let prefix_value =
+                            if let Ok(parsed_value) = prefix_value_maybe.parse::<usize>() {
+                                parsed_value
+                            } else {
                                 if self.strict {
                                     return Err(PlurrError::NotZeroOrPositiveValue);
                                 }
                                 0
-                            }
-                        };
+                            };
 
                         self.params.insert(
                             name.to_owned(),
@@ -160,28 +158,27 @@ impl<'a> Plurr<'a> {
                     }
                 }
 
-                let result = match colon_pos_maybe {
-                    Some(colon_pos) => {
-                        // multiple choices
-                        let block_len = block.len();
+                let result = if let Some(colon_pos) = colon_pos_maybe {
+                    // multiple choices
+                    let block_len = block.len();
 
-                        if self.strict && colon_pos == block_len - 1 {
-                            return Err(PlurrError::EmptyVariants);
-                        }
-
-                        let value = self.params.get(name).unwrap();
-                        let mut choice_idx: usize = value.parse().unwrap_or(0);
-
-                        let content_start = colon_pos + 1;
-                        let clean_block = &block[content_start..];
-
-                        let parts: Vec<&str> = clean_block.split('|').collect();
-                        if choice_idx >= parts.len() {
-                            choice_idx = parts.len() - 1;
-                        }
-                        parts[choice_idx]
+                    if self.strict && colon_pos == block_len - 1 {
+                        return Err(PlurrError::EmptyVariants);
                     }
-                    None => self.params.get(name).unwrap(),
+
+                    let value = self.params.get(name).unwrap();
+                    let mut choice_idx: usize = value.parse().unwrap_or(0);
+
+                    let content_start = colon_pos + 1;
+                    let clean_block = &block[content_start..];
+
+                    let parts: Vec<&str> = clean_block.split('|').collect();
+                    if choice_idx >= parts.len() {
+                        choice_idx = parts.len() - 1;
+                    }
+                    parts[choice_idx]
+                } else {
+                    self.params.get(name).unwrap()
                 };
 
                 let index = blocks.len() - 1;
