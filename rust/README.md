@@ -8,7 +8,7 @@ Add the `plurr` crate to your *Cargo.toml* file:
 
 ```toml
 [dependencies]
-plurr = "0.1.0"
+plurr = "0.2.1"
 ```
 
 ### Usage
